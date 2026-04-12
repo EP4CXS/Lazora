@@ -38,7 +38,7 @@ defineProps<{
 
     <div
         v-if="status"
-        class="mb-6 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-center text-sm font-medium text-emerald-100"
+        class="mb-4 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2.5 text-center text-[13px] font-medium text-emerald-100 sm:mb-5 sm:px-4 sm:py-3 sm:text-sm"
     >
         {{ status }}
     </div>
@@ -47,11 +47,16 @@ defineProps<{
         v-bind="store.form()"
         :reset-on-success="['password']"
         v-slot="{ errors, processing }"
-        class="flex flex-col gap-6"
+        class="flex flex-col gap-4 sm:gap-6"
     >
-        <div class="grid gap-5 sm:gap-6">
-            <div class="grid gap-2">
-                <Label for="email" class="text-sm font-medium text-white"> Email address </Label>
+        <div class="grid gap-4 sm:gap-5 md:gap-6">
+            <div class="grid gap-1.5 sm:gap-2">
+                <Label
+                    for="email"
+                    class="text-[13px] font-medium text-white sm:text-sm"
+                >
+                    Email address
+                </Label>
                 <Input
                     id="email"
                     type="email"
@@ -66,9 +71,14 @@ defineProps<{
                 <InputError :message="errors.email" />
             </div>
 
-            <div class="grid gap-2">
-                <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                    <Label for="password" class="text-sm font-medium text-white"> Password </Label>
+            <div class="grid gap-1.5 sm:gap-2">
+                <div class="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
+                    <Label
+                        for="password"
+                        class="text-[13px] font-medium text-white sm:text-sm"
+                    >
+                        Password
+                    </Label>
                     <TextLink
                         v-if="canResetPassword"
                         :href="request()"
@@ -117,10 +127,10 @@ defineProps<{
                 Log in
             </Button>
 
-            <div class="relative my-1 py-2">
+            <div class="relative my-0.5 py-1.5 sm:my-1 sm:py-2">
                 <div class="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-zinc-800" />
                 <span
-                    class="relative mx-auto block w-fit bg-black px-3 text-center text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-zinc-500"
+                    class="relative mx-auto block w-fit bg-[#050508] px-2 text-center text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-zinc-500 sm:px-3 sm:text-[0.65rem]"
                 >
                     or continue with
                 </span>
@@ -156,7 +166,10 @@ defineProps<{
             </Button>
         </div>
 
-        <div v-if="canRegister" class="text-center text-sm leading-relaxed text-zinc-500">
+        <div
+            v-if="canRegister"
+            class="text-center text-[13px] leading-relaxed text-zinc-500 sm:text-sm"
+        >
             Don't have an account?
             <TextLink :href="register()" :tabindex="5" :class="authDarkFooterLinkClass">
                 Sign up

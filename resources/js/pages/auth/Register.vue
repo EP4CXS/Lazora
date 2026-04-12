@@ -32,11 +32,11 @@ defineOptions({
         v-bind="store.form()"
         :reset-on-success="['password', 'password_confirmation']"
         v-slot="{ errors, processing }"
-        class="flex flex-col gap-6"
+        class="flex flex-col gap-4 sm:gap-6"
     >
-        <div class="grid gap-5 sm:gap-6">
-            <div class="grid gap-2">
-                <Label for="name" class="text-sm font-medium text-white">Name</Label>
+        <div class="grid gap-4 sm:gap-5 md:gap-6">
+            <div class="grid gap-1.5 sm:gap-2">
+                <Label for="name" class="text-[13px] font-medium text-white sm:text-sm">Name</Label>
                 <Input
                     id="name"
                     type="text"
@@ -51,8 +51,10 @@ defineOptions({
                 <InputError :message="errors.name" />
             </div>
 
-            <div class="grid gap-2">
-                <Label for="email" class="text-sm font-medium text-white">Email address</Label>
+            <div class="grid gap-1.5 sm:gap-2">
+                <Label for="email" class="text-[13px] font-medium text-white sm:text-sm">
+                    Email address
+                </Label>
                 <Input
                     id="email"
                     type="email"
@@ -66,8 +68,8 @@ defineOptions({
                 <InputError :message="errors.email" />
             </div>
 
-            <div class="grid gap-2">
-                <Label for="password" class="text-sm font-medium text-white">Password</Label>
+            <div class="grid gap-1.5 sm:gap-2">
+                <Label for="password" class="text-[13px] font-medium text-white sm:text-sm">Password</Label>
                 <PasswordInput
                     id="password"
                     required
@@ -80,8 +82,13 @@ defineOptions({
                 <InputError :message="errors.password" />
             </div>
 
-            <div class="grid gap-2">
-                <Label for="password_confirmation" class="text-sm font-medium text-white">Confirm password</Label>
+            <div class="grid gap-1.5 sm:gap-2">
+                <Label
+                    for="password_confirmation"
+                    class="text-[13px] font-medium text-white sm:text-sm"
+                >
+                    Confirm password
+                </Label>
                 <PasswordInput
                     id="password_confirmation"
                     required
@@ -105,10 +112,10 @@ defineOptions({
                 Create account
             </Button>
 
-            <div class="relative my-1 py-2">
+            <div class="relative my-0.5 py-1.5 sm:my-1 sm:py-2">
                 <div class="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-zinc-800" />
                 <span
-                    class="relative mx-auto block w-fit bg-black px-3 text-center text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-zinc-500"
+                    class="relative mx-auto block w-fit bg-[#050508] px-2 text-center text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-zinc-500 sm:px-3 sm:text-[0.65rem]"
                 >
                     or continue with
                 </span>
@@ -144,7 +151,7 @@ defineOptions({
             </Button>
         </div>
 
-        <div class="text-center text-sm leading-relaxed text-zinc-500">
+        <div class="text-center text-[13px] leading-relaxed text-zinc-500 sm:text-sm">
             Already have an account?
             <TextLink :href="login()" :tabindex="6" :class="authDarkFooterLinkClass">
                 Log in
