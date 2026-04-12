@@ -3,8 +3,8 @@ import { Head, Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import { dashboard, home, login, products, register } from '@/routes';
 
-/** Swap `public/images/hero/lazora-hero-showcase.png` to change hero art. */
-const heroShowcaseSrc = '/images/hero/lazora-hero-showcase.png';
+/** Featured hero art — replace `public/images/hero/lazora-hero-feature.png` to update. */
+const heroShowcaseSrc = '/images/hero/lazora-hero-feature.png';
 
 withDefaults(
     defineProps<{
@@ -102,16 +102,17 @@ const brandWordmark = computed(() => appName.value.toLowerCase());
             </div>
         </header>
 
-        <!-- Hero: dominant centered shoe, copy, CTA anchored to bottom -->
+        <!-- Hero: shoe + copy, then CTA vertically centered in space below copy -->
         <main
-            class="relative z-10 flex flex-1 flex-col px-4 pb-8 pt-2 sm:px-6 sm:pb-10 sm:pt-4"
+            class="relative z-10 flex min-h-0 flex-1 flex-col px-4 pb-6 pt-2 sm:px-6 sm:pb-8 sm:pt-4"
             style="perspective: 1400px"
         >
             <div
-                class="relative mx-auto flex w-full max-w-lg flex-1 flex-col lg:max-w-4xl"
+                class="relative mx-auto flex w-full min-h-0 max-w-lg flex-1 flex-col lg:max-w-4xl"
             >
+                <!-- Tilted stage: product + atmosphere only -->
                 <div
-                    class="relative mx-auto w-full max-w-[26rem] flex-1 transform-gpu transition-transform duration-500 ease-out will-change-transform [transform:rotate(-2deg)] sm:max-w-[30rem] lg:max-w-2xl lg:[transform:rotate(-1.5deg)]"
+                    class="relative mx-auto w-full max-w-[26rem] shrink-0 transform-gpu transition-transform duration-500 ease-out will-change-transform [transform:rotate(-2deg)] sm:max-w-[30rem] lg:max-w-2xl lg:[transform:rotate(-1.5deg)]"
                 >
                     <!-- Background outline typography -->
                     <div
@@ -155,34 +156,34 @@ const brandWordmark = computed(() => appName.value.toLowerCase());
                             height="1000"
                         />
                     </div>
-
-                    <!-- Headline — centered -->
-                    <div
-                        class="relative z-[6] mx-auto mt-1 max-w-md px-1 text-center sm:mt-2 sm:px-2 lg:max-w-lg"
-                    >
-                        <h1
-                            class="text-balance text-[1.65rem] font-bold uppercase leading-[1.12] tracking-tight text-white sm:text-3xl lg:text-[2.25rem]"
-                        >
-                            Live your perfect
-                        </h1>
-                        <p
-                            class="mx-auto mt-3 max-w-md text-pretty text-[15px] leading-relaxed text-white/72 sm:text-base"
-                        >
-                            Smart, gorgeous &amp; fashionable collection makes you cool.
-                        </p>
-                    </div>
                 </div>
 
-                <!-- Explore collection — bottom anchor, warm zone -->
+                <!-- Headline — centered, not tilted -->
                 <div
-                    class="relative z-[8] mx-auto mt-auto flex w-full max-w-md flex-col items-center pt-8 sm:pt-10 lg:max-w-lg"
+                    class="relative z-[6] mx-auto mt-2 max-w-md shrink-0 px-1 text-center sm:mt-3 sm:px-2 lg:max-w-lg"
+                >
+                    <h1
+                        class="text-balance text-[1.65rem] font-bold uppercase leading-[1.12] tracking-tight text-white sm:text-3xl lg:text-[2.25rem]"
+                    >
+                        Live your perfect
+                    </h1>
+                    <p
+                        class="mx-auto mt-3 max-w-md text-pretty text-[15px] leading-relaxed text-white/72 sm:text-base"
+                    >
+                        Smart, gorgeous &amp; fashionable collection makes you cool.
+                    </p>
+                </div>
+
+                <!-- Explore collection — fills space below copy; link centered between copy and bottom edge -->
+                <div
+                    class="relative z-[8] mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col items-center justify-center py-5 sm:py-6 lg:max-w-lg"
                 >
                     <div
-                        class="pointer-events-none absolute inset-x-0 -bottom-2 top-1/2 -z-10 bg-gradient-to-t from-orange-600/10 to-transparent blur-xl"
+                        class="pointer-events-none absolute inset-x-0 bottom-0 top-1/3 -z-10 bg-gradient-to-t from-orange-600/10 to-transparent blur-xl"
                     />
                     <Link
                         :href="products()"
-                        class="relative inline-flex min-h-11 items-center justify-center px-6 text-sm font-semibold tracking-wide text-white transition hover:text-white/95"
+                        class="relative inline-flex min-h-11 shrink-0 items-center justify-center px-6 text-sm font-semibold tracking-wide text-white transition hover:text-white/95"
                     >
                         <span
                             class="border-b border-white/25 pb-0.5 transition hover:border-white/50"
@@ -194,7 +195,7 @@ const brandWordmark = computed(() => appName.value.toLowerCase());
             </div>
 
             <p
-                class="mx-auto mt-6 hidden max-w-md text-center text-xs text-zinc-500 lg:mt-8 lg:block"
+                class="mx-auto mt-4 hidden max-w-md shrink-0 text-center text-xs text-zinc-500 lg:mt-6 lg:block"
             >
                 {{ appName }} — premium footwear for motion and everyday confidence.
             </p>
