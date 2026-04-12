@@ -166,96 +166,90 @@ const demoFromPrice = formatPhp(89);
                                         </span>
                                     </div>
 
-                                    <!-- Shoe stage -->
-                                    <div class="relative mt-4">
-                                        <div
-                                            class="relative flex min-h-[min(58vh,19.5rem)] flex-col items-center justify-center overflow-hidden rounded-2xl border border-white/[0.05] bg-gradient-to-b from-zinc-800/40 via-[#0a0a10] to-indigo-950/30 sm:min-h-[21rem] lg:min-h-[23rem]"
+                                    <!-- Shoe spotlight: no inner frame — only glow + product -->
+                                    <div
+                                        class="relative mt-2 flex min-h-[min(52vh,18.5rem)] items-center justify-center sm:min-h-[20rem] lg:min-h-[22rem]"
+                                    >
+                                        <!-- Watermark typography -->
+                                        <span
+                                            class="pointer-events-none absolute left-1/2 top-[44%] z-0 -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap text-[clamp(3.25rem,16vw,6.5rem)] font-bold uppercase leading-none tracking-tighter text-white/[0.035]"
+                                            aria-hidden="true"
                                         >
-                                            <!-- Watermark typography -->
-                                            <span
-                                                class="pointer-events-none absolute left-1/2 top-[42%] z-0 -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap text-[clamp(3.5rem,18vw,7rem)] font-bold uppercase leading-none tracking-tighter text-white/[0.03]"
-                                                aria-hidden="true"
+                                            {{ appName }}
+                                        </span>
+
+                                        <!-- Glow stack -->
+                                        <div
+                                            class="pointer-events-none absolute left-1/2 top-[40%] h-[50%] w-[95%] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/32 blur-[58px]"
+                                        />
+                                        <div
+                                            class="pointer-events-none absolute left-1/2 top-[30%] h-[28%] w-[50%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-400/22 blur-[42px]"
+                                        />
+                                        <div
+                                            class="pointer-events-none absolute bottom-[10%] left-1/2 h-9 w-[65%] max-w-sm -translate-x-1/2 rounded-full bg-orange-400/12 blur-2xl"
+                                        />
+                                        <div
+                                            class="pointer-events-none absolute bottom-[6%] left-1/2 h-7 w-[58%] -translate-x-1/2 rounded-full bg-black/55 blur-2xl"
+                                        />
+
+                                        <img
+                                            :src="heroShowcaseSrc"
+                                            alt="Featured Lazora sneaker"
+                                            class="relative z-10 mx-auto h-auto w-[90%] max-w-[17.5rem] object-contain object-center drop-shadow-[0_36px_60px_rgba(0,0,0,0.5)] sm:max-w-[19rem] lg:max-w-[21rem]"
+                                            loading="eager"
+                                            decoding="async"
+                                            width="800"
+                                            height="1000"
+                                        />
+                                    </div>
+
+                                    <!-- Meta: mobile-friendly grid -->
+                                    <div class="mt-4 grid grid-cols-2 gap-2.5">
+                                        <div
+                                            class="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-3.5 sm:p-4"
+                                        >
+                                            <p
+                                                class="text-[11px] font-medium text-zinc-500"
                                             >
-                                                {{ appName }}
-                                            </span>
-
-                                            <!-- Glow stack -->
-                                            <div
-                                                class="pointer-events-none absolute left-1/2 top-[38%] h-[48%] w-[92%] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/30 blur-[56px]"
-                                            />
-                                            <div
-                                                class="pointer-events-none absolute left-1/2 top-[30%] h-[26%] w-[48%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-400/20 blur-[40px]"
-                                            />
-                                            <div
-                                                class="pointer-events-none absolute bottom-[8%] left-1/2 h-8 w-[62%] max-w-xs -translate-x-1/2 rounded-full bg-orange-400/10 blur-2xl"
-                                            />
-                                            <div
-                                                class="pointer-events-none absolute bottom-[6%] left-1/2 h-6 w-[55%] -translate-x-1/2 rounded-full bg-black/60 blur-xl"
-                                            />
-
-                                            <div
-                                                class="pointer-events-none absolute inset-[5%] rounded-xl ring-1 ring-inset ring-white/[0.04]"
-                                            />
-
-                                            <img
-                                                :src="heroShowcaseSrc"
-                                                alt="Featured Lazora sneaker"
-                                                class="relative z-10 mx-auto h-auto w-[88%] max-w-[17.5rem] object-contain object-center drop-shadow-[0_32px_56px_rgba(0,0,0,0.55)] sm:max-w-[19rem] lg:max-w-[21rem]"
-                                                loading="eager"
-                                                decoding="async"
-                                                width="800"
-                                                height="1000"
-                                            />
+                                                Est. delivery
+                                            </p>
+                                            <p
+                                                class="mt-1 text-sm font-semibold text-white"
+                                            >
+                                                2–4 business days
+                                            </p>
                                         </div>
-
-                                        <!-- Meta: mobile-friendly grid -->
-                                        <div class="mt-4 grid grid-cols-2 gap-2.5">
+                                        <div
+                                            class="rounded-2xl border border-white/[0.07] bg-gradient-to-br from-white/[0.06] to-transparent p-3.5 shadow-inner sm:p-4"
+                                        >
                                             <div
-                                                class="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-3.5 sm:p-4"
+                                                class="flex items-end justify-between gap-2"
                                             >
-                                                <p
-                                                    class="text-[11px] font-medium text-zinc-500"
-                                                >
-                                                    Est. delivery
-                                                </p>
-                                                <p
-                                                    class="mt-1 text-sm font-semibold text-white"
-                                                >
-                                                    2–4 business days
-                                                </p>
-                                            </div>
-                                            <div
-                                                class="rounded-2xl border border-white/[0.07] bg-gradient-to-br from-white/[0.06] to-transparent p-3.5 shadow-inner sm:p-4"
-                                            >
-                                                <div
-                                                    class="flex items-end justify-between gap-2"
-                                                >
-                                                    <div>
-                                                        <p
-                                                            class="text-[11px] font-medium text-zinc-500"
-                                                        >
-                                                            From
-                                                        </p>
-                                                        <p
-                                                            class="mt-0.5 text-2xl font-semibold tabular-nums tracking-tight text-white"
-                                                        >
-                                                            {{ demoFromPrice }}
-                                                        </p>
-                                                    </div>
-                                                    <div
-                                                        class="flex gap-1.5"
-                                                        aria-hidden="true"
+                                                <div>
+                                                    <p
+                                                        class="text-[11px] font-medium text-zinc-500"
                                                     >
-                                                        <span
-                                                            class="h-6 w-6 rounded-full border border-white/10 bg-zinc-800 shadow-inner"
-                                                        />
-                                                        <span
-                                                            class="h-6 w-6 rounded-full border border-white/10 bg-red-700/90 shadow-inner"
-                                                        />
-                                                        <span
-                                                            class="h-6 w-6 rounded-full border border-dashed border-white/20"
-                                                        />
-                                                    </div>
+                                                        From
+                                                    </p>
+                                                    <p
+                                                        class="mt-0.5 text-2xl font-semibold tabular-nums tracking-tight text-white"
+                                                    >
+                                                        {{ demoFromPrice }}
+                                                    </p>
+                                                </div>
+                                                <div
+                                                    class="flex gap-1.5"
+                                                    aria-hidden="true"
+                                                >
+                                                    <span
+                                                        class="h-6 w-6 rounded-full border border-white/10 bg-zinc-800 shadow-inner"
+                                                    />
+                                                    <span
+                                                        class="h-6 w-6 rounded-full border border-white/10 bg-red-700/90 shadow-inner"
+                                                    />
+                                                    <span
+                                                        class="h-6 w-6 rounded-full border border-dashed border-white/20"
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
@@ -286,17 +280,17 @@ const demoFromPrice = formatPhp(89);
                             </p>
 
                             <div
-                                class="mx-auto mt-8 flex w-full max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:justify-center lg:mx-0 lg:justify-start"
+                                class="mx-auto mt-7 flex w-full max-w-md flex-col gap-2.5 sm:mt-8 sm:max-w-none sm:flex-row sm:justify-center sm:gap-3 lg:mx-0 lg:justify-start"
                             >
                                 <Link
                                     :href="products()"
-                                    class="inline-flex min-h-[3.25rem] w-full items-center justify-center rounded-2xl bg-gradient-to-r from-indigo-500 via-indigo-500 to-violet-600 px-6 py-3.5 text-center text-[15px] font-semibold text-white shadow-[0_16px_40px_-12px_rgba(99,102,241,0.55)] ring-1 ring-white/15 transition hover:brightness-110 hover:shadow-[0_20px_44px_-10px_rgba(99,102,241,0.5)] focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[#06060a] active:scale-[0.99] sm:min-w-[11rem]"
+                                    class="inline-flex min-h-[2.75rem] w-full items-center justify-center rounded-xl bg-gradient-to-r from-indigo-500 via-indigo-500 to-violet-600 px-5 py-2.5 text-center text-sm font-semibold text-white shadow-[0_12px_32px_-10px_rgba(99,102,241,0.5)] ring-1 ring-white/12 transition hover:brightness-110 hover:shadow-[0_16px_36px_-10px_rgba(99,102,241,0.45)] focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[#06060a] active:scale-[0.99] sm:w-auto sm:min-w-[9.25rem]"
                                 >
                                     Shop Now
                                 </Link>
                                 <Link
                                     :href="products()"
-                                    class="inline-flex min-h-[3.25rem] w-full items-center justify-center rounded-2xl border border-white/[0.12] bg-white/[0.04] px-6 py-3.5 text-center text-[15px] font-semibold text-white backdrop-blur-sm transition hover:border-white/20 hover:bg-white/[0.08] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/25 focus-visible:ring-offset-2 focus-visible:ring-offset-[#06060a] sm:min-w-[11rem]"
+                                    class="inline-flex min-h-[2.75rem] w-full items-center justify-center rounded-xl border border-white/[0.12] bg-white/[0.04] px-5 py-2.5 text-center text-sm font-semibold text-white backdrop-blur-sm transition hover:border-white/20 hover:bg-white/[0.08] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/25 focus-visible:ring-offset-2 focus-visible:ring-offset-[#06060a] sm:w-auto sm:min-w-[9.25rem]"
                                 >
                                     Explore Products
                                 </Link>
