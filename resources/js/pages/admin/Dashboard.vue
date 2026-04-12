@@ -75,7 +75,7 @@ defineOptions({
         <div class="rounded-3xl border border-sidebar-border/70 bg-card p-6 shadow-sm">
             <h2 class="text-lg font-semibold">Admin workspace</h2>
             <p class="mt-2 text-sm text-muted-foreground">
-                Use the sidebar to manage products, review customer orders, and handle security settings.
+                Use the sidebar to manage products, review customer orders, and handle security setting.
             </p>
         </div>
     </div>
