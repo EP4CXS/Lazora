@@ -4,6 +4,9 @@ import { computed } from 'vue';
 import { formatPhp } from '@/lib/currency';
 import { dashboard, home, login, products, register } from '@/routes';
 
+/** Hero product art — replace `public/images/hero/lazora-hero-showcase.png` to swap the shoe. */
+const heroShowcaseSrc = '/images/hero/lazora-hero-showcase.png';
+
 withDefaults(
     defineProps<{
         canRegister: boolean;
@@ -96,154 +99,170 @@ const demoFromPrice = formatPhp(89);
             </header>
 
             <div
-                class="relative z-10 flex flex-1 flex-col justify-center px-4 pb-12 pt-4 sm:px-6 sm:pb-16 sm:pt-6 lg:px-10 lg:pb-20 lg:pt-4"
+                class="relative z-10 flex flex-1 flex-col px-4 pb-14 pt-4 sm:px-6 sm:pb-20 sm:pt-6 lg:px-10 lg:pb-24 lg:pt-4"
             >
                 <div
-                    class="mx-auto grid w-full max-w-6xl flex-1 items-center gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16"
+                    class="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-14 lg:gap-16"
                 >
-                    <div class="order-2 flex flex-col justify-center lg:order-1">
-                        <p
-                            class="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-indigo-600/90 dark:text-indigo-400/90"
-                        >
-                            New season · Premium selection
-                        </p>
-                        <h1
-                            class="text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-zinc-900 dark:text-white sm:text-4xl sm:leading-[1.1] lg:text-5xl"
-                        >
-                            Elevate every day with curated essentials
-                        </h1>
-                        <p
-                            class="mt-4 max-w-xl text-pretty text-base leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-lg"
-                        >
-                            Discover thoughtfully chosen pieces, seamless
-                            checkout, and delivery you can trust—built for a
-                            calm, confident shopping experience.
-                        </p>
-
-                        <div
-                            class="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4"
-                        >
-                            <Link
-                                :href="products()"
-                                class="inline-flex min-h-[3rem] w-full items-center justify-center rounded-2xl border border-indigo-600 bg-indigo-600 px-6 py-3 text-center text-sm font-semibold text-white shadow-lg shadow-indigo-600/25 ring-1 ring-indigo-500/20 transition duration-200 ease-out hover:-translate-y-0.5 hover:border-indigo-500 hover:bg-indigo-500 hover:shadow-xl hover:shadow-indigo-600/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-50 active:translate-y-0 dark:ring-indigo-400/30 dark:focus-visible:ring-offset-zinc-950 sm:w-auto sm:min-w-[10.5rem]"
-                            >
-                                Shop Now
-                            </Link>
-                            <Link
-                                :href="products()"
-                                class="inline-flex min-h-[3rem] w-full items-center justify-center rounded-2xl border border-zinc-200 bg-white/80 px-6 py-3 text-center text-sm font-semibold text-zinc-800 shadow-sm ring-1 ring-black/[0.04] backdrop-blur-sm transition duration-200 ease-out hover:-translate-y-0.5 hover:border-zinc-300 hover:bg-white hover:shadow-md hover:shadow-zinc-900/8 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-50 active:translate-y-0 dark:border-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-100 dark:ring-white/[0.06] dark:hover:border-zinc-600 dark:hover:bg-zinc-900 dark:hover:shadow-black/25 sm:w-auto sm:min-w-[10.5rem]"
-                            >
-                                Explore Products
-                            </Link>
-                        </div>
-                    </div>
-
                     <div
-                        class="order-1 flex justify-center lg:order-2 lg:justify-end"
+                        class="grid flex-1 items-center gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16"
                     >
                         <div
-                            class="relative w-full max-w-md select-none sm:max-w-lg lg:max-w-none"
+                            class="order-2 flex flex-col justify-center lg:order-1"
+                        >
+                            <p
+                                class="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-indigo-600/90 dark:text-indigo-400/90"
+                            >
+                                Premium footwear
+                            </p>
+                            <h1
+                                class="text-balance text-3xl font-semibold leading-[1.15] tracking-tight text-zinc-900 dark:text-white sm:text-4xl sm:leading-[1.1] lg:text-5xl"
+                            >
+                                Find your next signature pair
+                            </h1>
+                            <p
+                                class="mt-4 max-w-xl text-pretty text-base leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-lg"
+                            >
+                                Fast delivery, trusted checkout, and a calm
+                                shopping flow—built for confident everyday
+                                style.
+                            </p>
+
+                            <div
+                                class="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4"
+                            >
+                                <Link
+                                    :href="products()"
+                                    class="inline-flex min-h-[3rem] w-full items-center justify-center rounded-2xl border border-indigo-600 bg-indigo-600 px-6 py-3 text-center text-sm font-semibold text-white shadow-lg shadow-indigo-600/25 ring-1 ring-indigo-500/20 transition duration-200 ease-out hover:-translate-y-0.5 hover:border-indigo-500 hover:bg-indigo-500 hover:shadow-xl hover:shadow-indigo-600/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-50 active:translate-y-0 dark:ring-indigo-400/30 dark:focus-visible:ring-offset-zinc-950 sm:w-auto sm:min-w-[10.5rem]"
+                                >
+                                    Shop Now
+                                </Link>
+                                <Link
+                                    :href="products()"
+                                    class="inline-flex min-h-[3rem] w-full items-center justify-center rounded-2xl border border-zinc-200 bg-white/80 px-6 py-3 text-center text-sm font-semibold text-zinc-800 shadow-sm ring-1 ring-black/[0.04] backdrop-blur-sm transition duration-200 ease-out hover:-translate-y-0.5 hover:border-zinc-300 hover:bg-white hover:shadow-md hover:shadow-zinc-900/8 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-50 active:translate-y-0 dark:border-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-100 dark:ring-white/[0.06] dark:hover:border-zinc-600 dark:hover:bg-zinc-900 dark:hover:shadow-black/25 sm:w-auto sm:min-w-[10.5rem]"
+                                >
+                                    Explore Products
+                                </Link>
+                            </div>
+                        </div>
+
+                        <div
+                            class="order-1 flex justify-center lg:order-2 lg:justify-end"
                         >
                             <div
-                                class="absolute -left-4 -top-4 h-32 w-32 rounded-full bg-indigo-400/20 blur-3xl dark:bg-indigo-500/15 sm:-left-8 sm:h-40 sm:w-40"
-                            />
-                            <div
-                                class="absolute -bottom-6 -right-2 h-36 w-36 rounded-full bg-violet-400/15 blur-3xl dark:bg-violet-500/10 sm:-right-6"
-                            />
-
-                            <div
-                                class="relative overflow-hidden rounded-3xl border border-zinc-200/80 bg-white/90 p-4 shadow-xl shadow-zinc-900/5 ring-1 ring-black/[0.04] backdrop-blur-md dark:border-zinc-700/80 dark:bg-zinc-900/90 dark:shadow-black/40 dark:ring-white/[0.06] sm:p-5"
+                                class="relative w-full max-w-md select-none sm:max-w-lg lg:max-w-none"
                             >
                                 <div
-                                    class="flex items-start justify-between gap-3 border-b border-zinc-100 pb-4 dark:border-zinc-800"
-                                >
-                                    <div>
-                                        <p
-                                            class="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400"
-                                        >
-                                            Featured
-                                        </p>
-                                        <p
-                                            class="mt-1 text-lg font-semibold tracking-tight text-zinc-900 dark:text-white"
-                                        >
-                                            Signature line
-                                        </p>
-                                    </div>
-                                    <span
-                                        class="rounded-full border border-emerald-200/80 bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800 dark:border-emerald-800/60 dark:bg-emerald-950/50 dark:text-emerald-300"
-                                    >
-                                        In stock
-                                    </span>
-                                </div>
+                                    class="absolute -left-4 -top-4 h-32 w-32 rounded-full bg-indigo-400/20 blur-3xl dark:bg-indigo-500/15 sm:-left-8 sm:h-40 sm:w-40"
+                                />
+                                <div
+                                    class="absolute -bottom-6 -right-2 h-36 w-36 rounded-full bg-violet-400/15 blur-3xl dark:bg-violet-500/10 sm:-right-6"
+                                />
 
-                                <div class="mt-4 grid gap-4 sm:grid-cols-2 sm:gap-3">
+                                <div
+                                    class="relative overflow-hidden rounded-3xl border border-zinc-200/80 bg-white/90 p-4 shadow-xl shadow-zinc-900/5 ring-1 ring-black/[0.04] backdrop-blur-md dark:border-zinc-700/80 dark:bg-zinc-900/90 dark:shadow-black/40 dark:ring-white/[0.06] sm:p-5"
+                                >
                                     <div
-                                        class="aspect-[4/5] overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-100 via-zinc-50 to-indigo-50 ring-1 ring-inset ring-black/[0.04] dark:from-zinc-800 dark:via-zinc-900 dark:to-indigo-950/40 dark:ring-white/[0.06]"
+                                        class="flex items-start justify-between gap-3 border-b border-zinc-100 pb-4 dark:border-zinc-800"
+                                    >
+                                        <div>
+                                            <p
+                                                class="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400"
+                                            >
+                                                Featured
+                                            </p>
+                                            <p
+                                                class="mt-1 text-lg font-semibold tracking-tight text-zinc-900 dark:text-white"
+                                            >
+                                                Signature line
+                                            </p>
+                                        </div>
+                                        <span
+                                            class="rounded-full border border-emerald-200/80 bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800 dark:border-emerald-800/60 dark:bg-emerald-950/50 dark:text-emerald-300"
+                                        >
+                                            In stock
+                                        </span>
+                                    </div>
+
+                                    <div
+                                        class="mt-4 flex flex-col gap-4 sm:flex-row sm:items-stretch sm:gap-3"
                                     >
                                         <div
-                                            class="flex h-full w-full flex-col justify-between p-4"
+                                            class="relative flex min-h-[min(52vh,22rem)] flex-1 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-b from-zinc-100/90 via-zinc-50 to-indigo-50/80 ring-1 ring-inset ring-black/[0.05] dark:from-zinc-800/90 dark:via-zinc-900 dark:to-indigo-950/50 dark:ring-white/[0.06] sm:min-h-[20rem] lg:min-h-[22rem]"
                                         >
                                             <div
-                                                class="h-2 w-8 rounded-full bg-white/60 dark:bg-white/10"
+                                                class="pointer-events-none absolute left-1/2 top-[40%] h-[42%] w-[88%] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-400/25 blur-[52px] dark:bg-indigo-500/35"
                                             />
-                                            <div class="space-y-2">
-                                                <div
-                                                    class="h-24 w-full rounded-xl bg-gradient-to-tr from-indigo-200/60 via-white/40 to-violet-200/50 dark:from-indigo-500/30 dark:via-indigo-400/10 dark:to-violet-600/20"
-                                                />
-                                                <div
-                                                    class="h-2 w-3/4 rounded-full bg-zinc-300/80 dark:bg-zinc-600/80"
-                                                />
-                                                <div
-                                                    class="h-2 w-1/2 rounded-full bg-zinc-200/90 dark:bg-zinc-700/90"
-                                                />
-                                            </div>
+                                            <div
+                                                class="pointer-events-none absolute left-1/2 top-[32%] h-[28%] w-[55%] max-w-xs -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-400/20 blur-[36px] dark:bg-violet-500/25"
+                                            />
+                                            <div
+                                                class="pointer-events-none absolute bottom-[10%] left-1/2 h-7 w-[58%] max-w-sm -translate-x-1/2 rounded-full bg-zinc-900/25 blur-2xl dark:bg-black/45"
+                                            />
+                                            <div
+                                                class="pointer-events-none absolute inset-[8%] rounded-2xl ring-1 ring-inset ring-white/30 dark:ring-white/[0.06]"
+                                            />
+
+                                            <img
+                                                :src="heroShowcaseSrc"
+                                                alt="Featured Lazora sneaker on a premium spotlight"
+                                                class="relative z-10 mx-auto h-auto w-full max-w-[min(100%,20rem)] object-contain object-center drop-shadow-[0_28px_48px_rgba(0,0,0,0.35)] sm:max-w-[min(100%,22rem)] lg:max-w-[min(100%,24rem)]"
+                                                loading="eager"
+                                                decoding="async"
+                                                width="800"
+                                                height="1000"
+                                            />
                                         </div>
-                                    </div>
-                                    <div class="flex flex-col justify-between gap-3">
+
                                         <div
-                                            class="rounded-2xl border border-zinc-100 bg-zinc-50/90 p-4 dark:border-zinc-800 dark:bg-zinc-950/50"
-                                        >
-                                            <p
-                                                class="text-xs text-zinc-500 dark:text-zinc-400"
-                                            >
-                                                Est. delivery
-                                            </p>
-                                            <p
-                                                class="mt-1 text-sm font-semibold text-zinc-900 dark:text-white"
-                                            >
-                                                2–4 business days
-                                            </p>
-                                        </div>
-                                        <div
-                                            class="rounded-2xl border border-zinc-100 bg-gradient-to-br from-white to-zinc-50 p-4 shadow-inner dark:border-zinc-800 dark:from-zinc-900 dark:to-zinc-950"
+                                            class="flex shrink-0 flex-col justify-between gap-3 sm:w-44"
                                         >
                                             <div
-                                                class="flex items-end justify-between gap-2"
+                                                class="rounded-2xl border border-zinc-100 bg-zinc-50/90 p-4 dark:border-zinc-800 dark:bg-zinc-950/50"
                                             >
-                                                <div>
-                                                    <p
-                                                        class="text-xs text-zinc-500 dark:text-zinc-400"
-                                                    >
-                                                        From
-                                                    </p>
-                                                    <p
-                                                        class="text-2xl font-semibold tabular-nums tracking-tight text-zinc-900 dark:text-white"
-                                                    >
-                                                        {{ demoFromPrice }}
-                                                    </p>
-                                                </div>
-                                                <div
-                                                    class="flex gap-1.5 opacity-80"
+                                                <p
+                                                    class="text-xs text-zinc-500 dark:text-zinc-400"
                                                 >
-                                                    <span
-                                                        class="h-6 w-6 rounded-full bg-zinc-300 dark:bg-zinc-600"
-                                                    />
-                                                    <span
-                                                        class="h-6 w-6 rounded-full bg-zinc-400 dark:bg-zinc-500"
-                                                    />
-                                                    <span
-                                                        class="h-6 w-6 rounded-full border border-dashed border-zinc-300 dark:border-zinc-600"
-                                                    />
+                                                    Est. delivery
+                                                </p>
+                                                <p
+                                                    class="mt-1 text-sm font-semibold text-zinc-900 dark:text-white"
+                                                >
+                                                    2–4 business days
+                                                </p>
+                                            </div>
+                                            <div
+                                                class="rounded-2xl border border-zinc-100 bg-gradient-to-br from-white to-zinc-50 p-4 shadow-inner dark:border-zinc-800 dark:from-zinc-900 dark:to-zinc-950"
+                                            >
+                                                <div
+                                                    class="flex items-end justify-between gap-2"
+                                                >
+                                                    <div>
+                                                        <p
+                                                            class="text-xs text-zinc-500 dark:text-zinc-400"
+                                                        >
+                                                            From
+                                                        </p>
+                                                        <p
+                                                            class="text-2xl font-semibold tabular-nums tracking-tight text-zinc-900 dark:text-white"
+                                                        >
+                                                            {{ demoFromPrice }}
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="flex gap-1.5 opacity-80"
+                                                        aria-hidden="true"
+                                                    >
+                                                        <span
+                                                            class="h-6 w-6 rounded-full bg-zinc-800 dark:bg-zinc-600"
+                                                        />
+                                                        <span
+                                                            class="h-6 w-6 rounded-full bg-red-700/90 dark:bg-red-600/90"
+                                                        />
+                                                        <span
+                                                            class="h-6 w-6 rounded-full border border-dashed border-zinc-300 dark:border-zinc-600"
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -252,6 +271,31 @@ const demoFromPrice = formatPhp(89);
                             </div>
                         </div>
                     </div>
+
+                    <section
+                        aria-labelledby="welcome-inspiration-heading"
+                        class="border-t border-zinc-200/80 pt-12 dark:border-zinc-800/80 sm:pt-14 lg:pt-16"
+                    >
+                        <p
+                            class="text-xs font-semibold uppercase tracking-[0.28em] text-indigo-600 dark:text-indigo-400"
+                        >
+                            New season · Premium selection
+                        </p>
+                        <h2
+                            id="welcome-inspiration-heading"
+                            class="mt-4 max-w-3xl text-balance text-2xl font-semibold leading-tight tracking-tight text-zinc-900 dark:text-white sm:text-3xl lg:text-4xl"
+                        >
+                            Elevate every day with curated essentials
+                        </h2>
+                        <p
+                            class="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-lg"
+                        >
+                            Discover thoughtfully chosen pieces, seamless
+                            checkout, and delivery you can trust—built for a
+                            calm, confident shopping experience that feels as
+                            considered as the products we carry.
+                        </p>
+                    </section>
                 </div>
             </div>
         </section>
