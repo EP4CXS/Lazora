@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Head, Link, usePage } from '@inertiajs/vue3';
-import { ChevronUp } from 'lucide-vue-next';
 import { computed } from 'vue';
 import { dashboard, home, login, products, register } from '@/routes';
 
@@ -18,40 +17,44 @@ withDefaults(
 
 const page = usePage<{ name: string }>();
 const appName = computed(() => page.props.name ?? 'Lazora');
+const brandWordmark = computed(() => appName.value.toLowerCase());
 </script>
 
 <template>
     <div
-        class="relative min-h-[100dvh] overflow-x-hidden bg-[#0c0c0e] text-zinc-100 antialiased selection:bg-orange-500/30"
+        class="relative flex min-h-[100dvh] flex-col overflow-x-hidden bg-[#050508] text-zinc-100 antialiased selection:bg-orange-500/30"
     >
         <Head title="Welcome">
             <link rel="preconnect" href="https://rsms.me/" />
             <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
         </Head>
 
-        <!-- Cinematic base + warm floor glow (reference: charcoal → orange/red) -->
+        <!-- Cinematic base + warm floor glow -->
         <div
-            class="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_120%_80%_at_50%_-20%,rgba(255,255,255,0.04),transparent_50%)]"
+            class="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_120%_80%_at_50%_-15%,rgba(255,255,255,0.035),transparent_55%)]"
         />
         <div
-            class="pointer-events-none fixed inset-x-0 bottom-0 h-[55%] bg-[radial-gradient(ellipse_100%_100%_at_50%_100%,rgba(220,90,40,0.35),rgba(180,60,30,0.12)_45%,transparent_70%)]"
+            class="pointer-events-none fixed inset-x-0 bottom-0 h-[58%] bg-[radial-gradient(ellipse_100%_90%_at_50%_100%,rgba(234,88,12,0.28),rgba(180,50,30,0.1)_48%,transparent_72%)]"
         />
         <div
-            class="pointer-events-none fixed inset-x-0 bottom-0 h-[35%] bg-gradient-to-t from-[#2a0a06]/90 via-[#1a0808]/40 to-transparent"
+            class="pointer-events-none fixed inset-x-0 bottom-0 h-[38%] bg-gradient-to-t from-[#1f0a08]/95 via-[#120808]/55 to-transparent"
+        />
+        <div
+            class="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_80%_50%_at_70%_20%,rgba(59,130,246,0.04),transparent_55%)]"
         />
 
-        <!-- Premium header: integrated, pill actions -->
-        <header class="relative z-30 px-4 pt-5 sm:px-6 sm:pt-6">
-            <div class="mx-auto flex max-w-lg items-center justify-between gap-3">
+        <!-- Header -->
+        <header class="relative z-30 shrink-0 px-4 pt-5 sm:px-6 sm:pt-6">
+            <div class="mx-auto flex max-w-lg items-center justify-between gap-3 lg:max-w-5xl">
                 <Link
                     :href="home()"
-                    class="group flex min-w-0 items-center gap-2 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400/40"
+                    class="group flex min-w-0 items-center gap-2.5 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400/40"
                 >
                     <span
-                        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.04] shadow-[0_0_20px_-4px_rgba(251,146,60,0.25)]"
+                        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/[0.1] bg-white/[0.04] shadow-[0_0_24px_-6px_rgba(234,88,12,0.35)]"
                     >
                         <svg
-                            class="h-[15px] w-[15px] text-orange-300/90"
+                            class="h-[15px] w-[15px] text-orange-400/95"
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
@@ -65,8 +68,10 @@ const appName = computed(() => page.props.name ?? 'Lazora');
                             />
                         </svg>
                     </span>
-                    <span class="truncate text-[15px] font-semibold tracking-wide text-white">
-                        {{ appName }}
+                    <span
+                        class="truncate text-[15px] font-bold lowercase tracking-wide text-white"
+                    >
+                        {{ brandWordmark }}
                     </span>
                 </Link>
 
@@ -74,21 +79,21 @@ const appName = computed(() => page.props.name ?? 'Lazora');
                     <Link
                         v-if="$page.props.auth.user"
                         :href="dashboard()"
-                        class="inline-flex min-h-10 items-center justify-center rounded-full border border-white/10 bg-black/40 px-4 text-sm font-medium text-white backdrop-blur-md transition hover:bg-white/10"
+                        class="inline-flex min-h-10 items-center justify-center rounded-full border border-white/15 bg-transparent px-4 text-sm font-medium text-white transition hover:bg-white/10"
                     >
                         Dashboard
                     </Link>
                     <template v-else>
                         <Link
                             :href="login()"
-                            class="inline-flex min-h-10 min-w-[4.5rem] items-center justify-center rounded-full border border-white/[0.08] bg-black/50 px-4 text-sm font-medium text-white/95 backdrop-blur-md transition hover:bg-white/10"
+                            class="inline-flex min-h-10 min-w-[4.5rem] items-center justify-center rounded-full border border-white/20 bg-transparent px-4 text-sm font-medium text-white transition hover:bg-white/10"
                         >
                             Log in
                         </Link>
                         <Link
                             v-if="canRegister"
                             :href="register()"
-                            class="inline-flex min-h-10 items-center justify-center rounded-full bg-white px-4 text-sm font-semibold text-zinc-900 shadow-lg shadow-black/20 transition hover:bg-zinc-100"
+                            class="inline-flex min-h-10 items-center justify-center rounded-full bg-white px-4 text-sm font-semibold text-zinc-900 shadow-lg shadow-black/25 transition hover:bg-zinc-100"
                         >
                             Register
                         </Link>
@@ -97,103 +102,101 @@ const appName = computed(() => page.props.name ?? 'Lazora');
             </div>
         </header>
 
-        <!-- Tilted immersive hero stage (reference: floating premium card) -->
+        <!-- Hero: dominant centered shoe, copy, CTA anchored to bottom -->
         <main
-            class="relative z-10 mx-auto flex min-h-0 max-w-lg flex-1 flex-col px-4 pb-10 pt-4 sm:px-6 sm:pb-14 sm:pt-6 lg:max-w-5xl lg:pb-16"
-            style="perspective: 1200px"
+            class="relative z-10 flex flex-1 flex-col px-4 pb-8 pt-2 sm:px-6 sm:pb-10 sm:pt-4"
+            style="perspective: 1400px"
         >
             <div
-                class="relative mx-auto w-full origin-top transform-gpu transition-transform duration-500 ease-out will-change-transform [transform:rotateX(2deg)_rotate(-3.5deg)] sm:[transform:rotateX(1deg)_rotate(-3deg)] lg:mx-0 lg:max-w-xl lg:[transform:rotateX(0deg)_rotate(-2deg)]"
+                class="relative mx-auto flex w-full max-w-lg flex-1 flex-col lg:max-w-4xl"
             >
-                <!-- Large outline typography behind product (reference energy) -->
                 <div
-                    class="pointer-events-none absolute -left-4 right-0 top-[8%] z-0 flex h-[72%] flex-col items-center justify-start gap-0 overflow-hidden opacity-[0.14] sm:top-[6%]"
-                    aria-hidden="true"
+                    class="relative mx-auto w-full max-w-[26rem] flex-1 transform-gpu transition-transform duration-500 ease-out will-change-transform [transform:rotate(-2deg)] sm:max-w-[30rem] lg:max-w-2xl lg:[transform:rotate(-1.5deg)]"
                 >
-                    <span
-                        v-for="row in 4"
-                        :key="row"
-                        class="hero-outline-text font-black uppercase leading-[0.85] tracking-tighter text-transparent"
+                    <!-- Background outline typography -->
+                    <div
+                        class="pointer-events-none absolute inset-x-0 top-[4%] z-0 flex flex-col items-center gap-0 overflow-hidden opacity-[0.11] sm:top-[2%]"
+                        aria-hidden="true"
                     >
-                        {{ appName }}
-                    </span>
-                </div>
+                        <span
+                            v-for="row in 4"
+                            :key="row"
+                            class="hero-outline-text font-black uppercase leading-[0.82] tracking-tighter text-transparent"
+                        >
+                            {{ appName }}
+                        </span>
+                    </div>
 
-                <!-- Motion-style warm accent arcs -->
-                <div
-                    class="pointer-events-none absolute left-[8%] top-[18%] z-[1] h-40 w-40 rounded-full border border-orange-500/20 opacity-60 blur-[1px] sm:left-[12%]"
-                />
-                <div
-                    class="pointer-events-none absolute right-[5%] top-[22%] z-[1] h-32 w-48 rotate-12 rounded-[100%] border border-orange-400/15 opacity-50"
-                />
-                <div
-                    class="pointer-events-none absolute left-1/2 top-[28%] z-[1] h-64 w-[110%] -translate-x-1/2 rounded-full bg-orange-500/10 blur-3xl"
-                />
-
-                <!-- Spotlight on shoe -->
-                <div
-                    class="pointer-events-none absolute left-1/2 top-[32%] z-[2] h-[42%] w-[85%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/[0.07] blur-[50px]"
-                />
-
-                <!-- Shoe -->
-                <div
-                    class="relative z-[5] flex min-h-[min(48vh,20rem)] items-center justify-center pt-2 sm:min-h-[22rem] lg:min-h-[26rem]"
-                >
-                    <img
-                        :src="heroShowcaseSrc"
-                        :alt="`${appName} featured sneaker`"
-                        class="relative h-auto w-[92%] max-w-[17.5rem] -rotate-6 object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,0.65)] sm:max-w-[19rem] sm:-rotate-[8deg] lg:max-w-[22rem]"
-                        loading="eager"
-                        decoding="async"
-                        width="800"
-                        height="1000"
+                    <!-- Spotlight + subtle arcs -->
+                    <div
+                        class="pointer-events-none absolute left-1/2 top-[26%] z-[1] h-[48%] w-[92%] -translate-x-1/2 rounded-full bg-orange-500/[0.07] blur-[56px]"
                     />
-                </div>
+                    <div
+                        class="pointer-events-none absolute left-1/2 top-[30%] z-[2] h-[38%] w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/[0.06] blur-[44px]"
+                    />
+                    <div
+                        class="pointer-events-none absolute left-[6%] top-[20%] z-[1] h-36 w-36 rounded-full border border-orange-500/15 opacity-50 sm:left-[10%]"
+                    />
+                    <div
+                        class="pointer-events-none absolute right-[4%] top-[24%] z-[1] h-28 w-44 rotate-12 rounded-[100%] border border-orange-400/12 opacity-40"
+                    />
 
-                <!-- Headline block — sits in warm zone -->
-                <div
-                    class="relative z-[6] -mt-2 px-1 pb-2 text-left sm:px-2 lg:max-w-md lg:pb-4"
-                >
-                    <h1
-                        class="text-balance text-[1.75rem] font-bold uppercase leading-[1.1] tracking-tight text-white sm:text-3xl lg:text-[2.35rem]"
+                    <!-- Shoe — larger, centered, object-contain -->
+                    <div
+                        class="relative z-[5] mx-auto flex w-full items-center justify-center px-1 pt-2 sm:px-2 sm:pt-4"
                     >
-                        Live your perfect
-                    </h1>
-                    <p
-                        class="mt-3 max-w-md text-pretty text-[15px] leading-relaxed text-white/75 sm:text-base"
-                    >
-                        Smart, gorgeous &amp; fashionable collection makes you cool.
-                    </p>
-                </div>
-
-                <!-- CTA — premium, connected to warm glow -->
-                <div
-                    class="relative z-[6] mt-6 flex flex-col items-center gap-3 sm:mt-8 lg:items-start"
-                >
-                    <Link
-                        :href="products()"
-                        class="group inline-flex min-h-12 w-full max-w-xs items-center justify-center gap-2 rounded-2xl bg-white px-6 text-sm font-semibold text-zinc-900 shadow-[0_12px_40px_-8px_rgba(0,0,0,0.45)] transition hover:bg-zinc-100 active:scale-[0.99] lg:max-w-none lg:px-8"
-                    >
-                        <span>Get started</span>
-                        <ChevronUp
-                            class="size-4 transition group-hover:-translate-y-0.5"
-                            aria-hidden="true"
+                        <img
+                            :src="heroShowcaseSrc"
+                            :alt="`${appName} featured sneaker`"
+                            class="relative h-auto w-full max-w-[min(94vw,26rem)] object-contain drop-shadow-[0_48px_90px_rgba(0,0,0,0.72)] sm:max-w-[30rem] sm:-rotate-[5deg] lg:max-w-[34rem] lg:-rotate-[4deg]"
+                            loading="eager"
+                            decoding="async"
+                            width="800"
+                            height="1000"
                         />
-                    </Link>
+                    </div>
+
+                    <!-- Headline — centered -->
+                    <div
+                        class="relative z-[6] mx-auto mt-1 max-w-md px-1 text-center sm:mt-2 sm:px-2 lg:max-w-lg"
+                    >
+                        <h1
+                            class="text-balance text-[1.65rem] font-bold uppercase leading-[1.12] tracking-tight text-white sm:text-3xl lg:text-[2.25rem]"
+                        >
+                            Live your perfect
+                        </h1>
+                        <p
+                            class="mx-auto mt-3 max-w-md text-pretty text-[15px] leading-relaxed text-white/72 sm:text-base"
+                        >
+                            Smart, gorgeous &amp; fashionable collection makes you cool.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Explore collection — bottom anchor, warm zone -->
+                <div
+                    class="relative z-[8] mx-auto mt-auto flex w-full max-w-md flex-col items-center pt-8 sm:pt-10 lg:max-w-lg"
+                >
+                    <div
+                        class="pointer-events-none absolute inset-x-0 -bottom-2 top-1/2 -z-10 bg-gradient-to-t from-orange-600/10 to-transparent blur-xl"
+                    />
                     <Link
                         :href="products()"
-                        class="text-center text-sm font-medium text-white/70 underline-offset-4 transition hover:text-white hover:underline"
+                        class="relative inline-flex min-h-11 items-center justify-center px-6 text-sm font-semibold tracking-wide text-white transition hover:text-white/95"
                     >
-                        Explore collection
+                        <span
+                            class="border-b border-white/25 pb-0.5 transition hover:border-white/50"
+                        >
+                            Explore collection
+                        </span>
                     </Link>
                 </div>
             </div>
 
-            <!-- Desktop: side caption (same story, wider canvas) -->
             <p
-                class="mx-auto mt-10 hidden max-w-md text-center text-xs text-zinc-500 lg:mt-12 lg:block"
+                class="mx-auto mt-6 hidden max-w-md text-center text-xs text-zinc-500 lg:mt-8 lg:block"
             >
-                {{ appName }} — premium footwear, crafted for motion and everyday confidence.
+                {{ appName }} — premium footwear for motion and everyday confidence.
             </p>
         </main>
     </div>
@@ -201,8 +204,8 @@ const appName = computed(() => page.props.name ?? 'Lazora');
 
 <style scoped>
 .hero-outline-text {
-    font-size: clamp(2.75rem, 18vw, 5.5rem);
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.35);
-    text-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
+    font-size: clamp(2.85rem, 19vw, 6rem);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.32);
+    text-shadow: 0 0 40px rgba(255, 255, 255, 0.04);
 }
 </style>

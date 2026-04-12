@@ -72,10 +72,10 @@ const activePage = computed(() => {
 });
 
 const cardShells = [
-    'from-violet-500/[0.12] via-card to-card dark:from-violet-400/[0.08]',
-    'from-sky-500/[0.12] via-card to-card dark:from-sky-400/[0.08]',
-    'from-amber-500/[0.10] via-card to-card dark:from-amber-400/[0.07]',
-    'from-emerald-500/[0.11] via-card to-card dark:from-emerald-400/[0.07]',
+    'from-orange-500/[0.14] via-card to-card dark:from-orange-400/[0.09]',
+    'from-cyan-500/[0.11] via-card to-card dark:from-cyan-400/[0.07]',
+    'from-violet-500/[0.10] via-card to-card dark:from-violet-400/[0.06]',
+    'from-rose-500/[0.09] via-card to-card dark:from-rose-400/[0.06]',
 ];
 
 function colorLabels(color: string | null): string[] {
@@ -260,7 +260,7 @@ watch(
                                     <Badge
                                         v-if="p.is_featured"
                                         variant="secondary"
-                                        class="rounded-full border-0 bg-amber-500/90 px-2 py-0.5 text-[10px] font-semibold uppercase text-white backdrop-blur dark:bg-amber-600/90"
+                                        class="rounded-full border-0 bg-primary/90 px-2 py-0.5 text-[10px] font-semibold uppercase text-primary-foreground backdrop-blur dark:bg-primary/85"
                                     >
                                         Hot
                                     </Badge>

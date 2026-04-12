@@ -21,7 +21,7 @@ defineProps<{
             class="pointer-events-none absolute -right-20 -top-20 size-72 rounded-full bg-primary/10 blur-3xl dark:bg-primary/15"
         />
         <div
-            class="pointer-events-none absolute -bottom-24 -left-16 size-64 rounded-full bg-indigo-500/5 blur-3xl dark:bg-indigo-400/10"
+            class="pointer-events-none absolute -bottom-24 -left-16 size-64 rounded-full bg-cyan-500/5 blur-3xl dark:bg-cyan-400/10"
         />
 
         <div
@@ -75,7 +75,7 @@ defineProps<{
                 class="group relative mx-auto flex h-[220px] max-h-[260px] w-full max-w-lg items-center justify-center overflow-hidden rounded-2xl border border-border/50 bg-muted/20 sm:h-[260px] sm:max-h-[300px] lg:h-full lg:max-h-[min(100%,280px)] lg:min-h-[220px]"
             >
                 <div
-                    class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_70%_at_50%_55%,rgba(99,102,241,0.14),transparent_72%)] opacity-90"
+                    class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_70%_at_50%_55%,rgba(234,88,12,0.12),transparent_72%)] opacity-90 dark:bg-[radial-gradient(ellipse_80%_70%_at_50%_55%,rgba(234,88,12,0.16),transparent_72%)]"
                 />
                 <div
                     class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-[radial-gradient(ellipse_85%_75%_at_50%_50%,rgba(99,102,241,0.22),transparent_75%)]"
