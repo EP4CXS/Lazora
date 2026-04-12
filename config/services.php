@@ -38,7 +38,12 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => env('GOOGLE_REDIRECT_URL', '/auth/google/callback'),
+        /*
+         * Google requires a full HTTPS URL in production. Prefer GOOGLE_REDIRECT_URI when set;
+         * otherwise derive from APP_URL (set this in Laravel Cloud).
+         */
+        'redirect' => env('GOOGLE_REDIRECT_URI')
+            ?: rtrim((string) env('APP_URL', 'http://localhost'), '/').'/auth/google/callback',
     ],
 
 ];

@@ -15,6 +15,18 @@ test('guests can redirect to google for authentication', function () {
     $this->assertStringContainsString('google', $response->getTargetUrl());
 });
 
+test('google redirect without oauth env vars redirects to login with status', function () {
+    config([
+        'services.google.client_id' => null,
+        'services.google.client_secret' => null,
+    ]);
+
+    $response = $this->get('/auth/google/redirect');
+
+    $response->assertRedirect(route('login'));
+    $response->assertSessionHas('status');
+});
+
 test('unsupported provider redirects to login', function () {
     $response = $this->get('/auth/facebook/redirect');
 
@@ -99,7 +111,7 @@ test('existing user without social account gets social account linked', function
 });
 
 test('google callback failure redirects to login with status', function () {
-    Socialite::shouldReceive('driver->user')->andThrow(new \Exception('Authentication failed'));
+    Socialite::shouldReceive('driver->user')->andThrow(new Exception('Authentication failed'));
 
     $response = $this->get('/auth/google/callback');
 

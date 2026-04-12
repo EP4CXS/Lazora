@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\SocialAccount;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -17,6 +16,13 @@ class SocialAuthController extends Controller
     {
         if (! in_array($provider, ['google'])) {
             return redirect()->route('login')->with('status', 'Unsupported login provider.');
+        }
+
+        if (blank(config('services.google.client_id')) || blank(config('services.google.client_secret'))) {
+            return redirect()->route('login')->with(
+                'status',
+                'Google sign-in is not configured. Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in your server environment (e.g. Laravel Cloud → Environment).'
+            );
         }
 
         return Socialite::driver($provider)->redirect();
@@ -34,7 +40,7 @@ class SocialAuthController extends Controller
         try {
             $socialiteUser = Socialite::driver($provider)->user();
         } catch (\Exception) {
-            return redirect()->route('login')->with('status', 'Unable to authenticate with ' . ucfirst($provider) . '. Please try again.');
+            return redirect()->route('login')->with('status', 'Unable to authenticate with '.ucfirst($provider).'. Please try again.');
         }
 
         $socialAccount = SocialAccount::where('provider', $provider)

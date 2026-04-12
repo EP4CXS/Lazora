@@ -3,14 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class AdminUserSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Default admin for local/demo. Set ADMIN_INITIAL_PASSWORD in production (e.g. Laravel Cloud).
      */
     public function run(): void
     {
@@ -19,7 +17,7 @@ class AdminUserSeeder extends Seeder
             [
                 'name' => 'Administrator',
                 'email_verified_at' => now(),
-                'password' => Hash::make('password'),
+                'password' => env('ADMIN_INITIAL_PASSWORD', 'password'),
                 'role' => 'admin',
             ]
         );
