@@ -44,7 +44,7 @@ const brandWordmark = computed(() => appName.value.toLowerCase());
         />
 
         <!-- Header -->
-        <header class="relative z-30 shrink-0 px-4 pt-5 sm:px-6 sm:pt-6">
+        <header class="relative z-30 shrink-0 px-4 pb-1 pt-4 sm:px-6 sm:pb-2 sm:pt-5">
             <div class="mx-auto flex max-w-lg items-center justify-between gap-3 lg:max-w-5xl">
                 <Link
                     :href="home()"
@@ -102,54 +102,60 @@ const brandWordmark = computed(() => appName.value.toLowerCase());
             </div>
         </header>
 
-        <!-- Hero: centered column — background type, shoe, copy, CTA -->
+        <!-- Hero: one shared frame aligns LAZORA + shoe; copy + CTA below -->
         <main
-            class="relative z-10 flex min-h-0 flex-1 flex-col items-center px-4 pb-6 pt-1 sm:px-6 sm:pb-8 sm:pt-3 md:px-8 md:pt-4"
-            style="perspective: 1400px"
+            class="relative z-10 flex min-h-0 flex-1 flex-col items-center px-4 pb-6 pt-2 sm:px-6 sm:pb-8 sm:pt-3 md:px-8 md:pt-4"
         >
             <div
                 class="relative flex w-full min-h-0 max-w-lg flex-1 flex-col items-center md:max-w-2xl lg:max-w-4xl"
             >
-                <!-- Product stage: symmetric on mobile (no tilt), subtle tilt sm+ -->
+                <!--
+                  Visual frame: fixed min-height so outline + shoe share one centered box.
+                  LAZORA uses absolute inset-0 centering; shoe is flex-centered in the same box.
+                -->
                 <div
-                    class="relative mx-auto w-full max-w-[min(100%,26rem)] shrink-0 transform-gpu transition-transform duration-500 ease-out will-change-transform max-sm:[transform:none] sm:max-w-[30rem] sm:[transform:rotate(-2deg)] lg:max-w-[min(100%,36rem)] lg:[transform:rotate(-1.25deg)]"
+                    class="hero-visual-frame relative mx-auto w-full max-w-[min(100%,26rem)] shrink-0 sm:max-w-[30rem] lg:max-w-[min(100%,36rem)]"
                 >
-                    <!-- LAZORA outline — centered stack, stays behind shoe -->
+                    <!-- LAZORA — centered behind product (same origin as shoe) -->
                     <div
-                        class="pointer-events-none absolute left-1/2 top-[2%] z-0 flex w-full max-w-[100vw] -translate-x-1/2 flex-col items-center gap-0 overflow-hidden opacity-[0.085] sm:top-[3%] sm:opacity-[0.11] md:top-[4%]"
+                        class="pointer-events-none absolute inset-0 z-0 flex items-center justify-center overflow-hidden"
                         aria-hidden="true"
                     >
-                        <span
-                            v-for="row in 4"
-                            :key="row"
-                            class="hero-outline-text font-black uppercase leading-[0.82] tracking-tighter text-transparent"
+                        <div
+                            class="flex flex-col items-center justify-center opacity-[0.09] sm:opacity-[0.11] md:opacity-[0.12]"
                         >
-                            {{ appName }}
-                        </span>
+                            <span
+                                v-for="row in 3"
+                                :key="row"
+                                class="hero-outline-text font-black uppercase tracking-tighter text-transparent"
+                            >
+                                {{ appName }}
+                            </span>
+                        </div>
                     </div>
 
-                    <!-- Spotlight (centered) + light rim accents -->
+                    <!-- Spotlights: centered on frame -->
                     <div
-                        class="pointer-events-none absolute left-1/2 top-[28%] z-[1] h-[50%] w-[min(94%,22rem)] -translate-x-1/2 rounded-full bg-orange-500/[0.065] blur-[52px] sm:top-[26%] sm:w-[90%] sm:blur-[56px]"
+                        class="pointer-events-none absolute left-1/2 top-1/2 z-[1] h-[min(72%,20rem)] w-[min(92%,22rem)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-orange-500/[0.07] blur-[56px] sm:h-[min(68%,22rem)] sm:w-[90%]"
                     />
                     <div
-                        class="pointer-events-none absolute left-1/2 top-[32%] z-[2] h-[40%] w-[min(88%,20rem)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/[0.055] blur-[42px] sm:w-[78%]"
+                        class="pointer-events-none absolute left-1/2 top-1/2 z-[2] h-[min(58%,17rem)] w-[min(78%,18rem)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/[0.055] blur-[44px]"
                     />
                     <div
-                        class="pointer-events-none absolute left-[8%] top-[20%] z-[1] hidden h-36 w-36 rounded-full border border-orange-500/14 opacity-50 sm:block sm:left-[10%]"
+                        class="pointer-events-none absolute left-[6%] top-[18%] z-[1] hidden h-32 w-32 rounded-full border border-orange-500/14 opacity-45 sm:block sm:left-[8%] sm:top-[16%] md:h-36 md:w-36"
                     />
                     <div
-                        class="pointer-events-none absolute right-[5%] top-[23%] z-[1] hidden h-28 w-44 rotate-12 rounded-[100%] border border-orange-400/12 opacity-40 sm:block"
+                        class="pointer-events-none absolute right-[4%] top-[20%] z-[1] hidden h-24 w-40 rotate-12 rounded-[100%] border border-orange-400/11 opacity-38 sm:block sm:right-[5%]"
                     />
 
-                    <!-- Shoe — centered, object-contain; rotation only sm+ -->
+                    <!-- Shoe — flex-centered in frame; rotation on image only -->
                     <div
-                        class="relative z-[5] mx-auto flex w-full justify-center px-2 pt-3 sm:px-3 sm:pt-5 md:pt-6"
+                        class="relative z-[5] flex min-h-[min(42dvh,17.5rem)] w-full items-center justify-center px-3 py-4 sm:min-h-[min(44dvh,20rem)] sm:px-4 sm:py-5 md:min-h-[min(46dvh,24rem)] md:py-6"
                     >
                         <img
                             :src="heroShowcaseSrc"
                             :alt="`${appName} featured sneaker`"
-                            class="relative mx-auto h-auto w-full max-w-[min(92vw,26rem)] object-contain drop-shadow-[0_44px_88px_rgba(0,0,0,0.75)] max-sm:rotate-0 sm:max-w-[30rem] sm:-rotate-[4deg] lg:max-w-[min(92vw,34rem)] lg:-rotate-[3deg]"
+                            class="mx-auto h-auto w-full max-w-[min(88vw,24rem)] object-contain object-center drop-shadow-[0_40px_80px_rgba(0,0,0,0.78)] max-sm:rotate-0 sm:max-w-[28rem] sm:-rotate-[3.5deg] lg:max-w-[min(90vw,32rem)] lg:-rotate-[3deg]"
                             loading="eager"
                             decoding="async"
                             width="800"
@@ -160,7 +166,7 @@ const brandWordmark = computed(() => appName.value.toLowerCase());
 
                 <!-- Headline -->
                 <div
-                    class="relative z-[6] mx-auto mt-4 w-full max-w-md shrink-0 px-2 text-center sm:mt-5 md:mt-6 lg:max-w-lg"
+                    class="relative z-[6] mx-auto mt-5 w-full max-w-md shrink-0 px-2 text-center sm:mt-6 md:mt-7 lg:max-w-lg"
                 >
                     <h1
                         class="text-balance text-[1.6rem] font-bold uppercase leading-[1.12] tracking-tight text-white sm:text-3xl md:text-[2rem] lg:text-[2.25rem]"
@@ -204,9 +210,16 @@ const brandWordmark = computed(() => appName.value.toLowerCase());
 </template>
 
 <style scoped>
+/* Stacked outline word — sized to frame the product; centered via parent flex */
 .hero-outline-text {
-    font-size: clamp(2.4rem, 16vw, 6rem);
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.28);
-    text-shadow: 0 0 40px rgba(255, 255, 255, 0.04);
+    font-size: clamp(2.85rem, 21vw, 7.25rem);
+    line-height: 0.76;
+    letter-spacing: -0.035em;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.26);
+    text-shadow: 0 0 48px rgba(255, 255, 255, 0.035);
+}
+
+.hero-outline-text + .hero-outline-text {
+    margin-top: -0.06em;
 }
 </style>
