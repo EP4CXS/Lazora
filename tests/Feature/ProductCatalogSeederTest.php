@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\File;
 
 uses(RefreshDatabase::class);
 
+test('migrations include default catalog so products exist without running db:seed', function () {
+    expect(Product::query()->where('is_active', true)->count())->toBe(5);
+});
+
 test('product seeder creates five footwear demo products with public images', function () {
     $this->seed(ProductSeeder::class);
 
