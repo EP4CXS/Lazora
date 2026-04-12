@@ -102,16 +102,16 @@ const brandWordmark = computed(() => appName.value.toLowerCase());
             </div>
         </header>
 
-        <!-- Hero: one shared frame aligns LAZORA + shoe; copy + CTA below -->
+        <!-- Hero: shoe + headline vertically centered in viewport; CTA anchored below -->
         <main
-            class="relative z-10 flex min-h-0 flex-1 flex-col items-center px-4 pb-6 pt-2 sm:px-6 sm:pb-8 sm:pt-3 md:px-8 md:pt-4"
+            class="relative z-10 flex min-h-0 flex-1 flex-col px-4 pb-5 pt-1 sm:px-6 sm:pb-6 sm:pt-2 md:px-8"
         >
+            <!-- Grows to fill space below header; justify-center places shoe block in middle-center -->
             <div
-                class="relative flex w-full min-h-0 max-w-lg flex-1 flex-col items-center md:max-w-2xl lg:max-w-4xl"
+                class="mx-auto flex w-full min-h-0 max-w-lg flex-1 flex-col items-center justify-center md:max-w-2xl lg:max-w-4xl"
             >
                 <!--
-                  Visual frame: fixed min-height so outline + shoe share one centered box.
-                  LAZORA uses absolute inset-0 centering; shoe is flex-centered in the same box.
+                  Visual frame: outline + shoe share one box; LAZORA absolute inset-0 centered.
                 -->
                 <div
                     class="hero-visual-frame relative mx-auto w-full max-w-[min(100%,26rem)] shrink-0 sm:max-w-[30rem] lg:max-w-[min(100%,36rem)]"
@@ -148,9 +148,9 @@ const brandWordmark = computed(() => appName.value.toLowerCase());
                         class="pointer-events-none absolute right-[4%] top-[20%] z-[1] hidden h-24 w-40 rotate-12 rounded-[100%] border border-orange-400/11 opacity-38 sm:block sm:right-[5%]"
                     />
 
-                    <!-- Shoe — flex-centered in frame; rotation on image only -->
+                    <!-- Shoe — centered in frame; rotation on image only -->
                     <div
-                        class="relative z-[5] flex min-h-[min(42dvh,17.5rem)] w-full items-center justify-center px-3 py-4 sm:min-h-[min(44dvh,20rem)] sm:px-4 sm:py-5 md:min-h-[min(46dvh,24rem)] md:py-6"
+                        class="relative z-[5] flex w-full items-center justify-center px-3 py-3 sm:px-4 sm:py-4 md:py-5"
                     >
                         <img
                             :src="heroShowcaseSrc"
@@ -166,7 +166,7 @@ const brandWordmark = computed(() => appName.value.toLowerCase());
 
                 <!-- Headline -->
                 <div
-                    class="relative z-[6] mx-auto mt-5 w-full max-w-md shrink-0 px-2 text-center sm:mt-6 md:mt-7 lg:max-w-lg"
+                    class="relative z-[6] mx-auto mt-4 w-full max-w-md shrink-0 px-2 text-center sm:mt-5 md:mt-6 lg:max-w-lg"
                 >
                     <h1
                         class="text-balance text-[1.6rem] font-bold uppercase leading-[1.12] tracking-tight text-white sm:text-3xl md:text-[2rem] lg:text-[2.25rem]"
@@ -179,29 +179,29 @@ const brandWordmark = computed(() => appName.value.toLowerCase());
                         Smart, gorgeous &amp; fashionable collection makes you cool.
                     </p>
                 </div>
+            </div>
 
-                <!-- CTA — vertical center in remaining space -->
+            <!-- CTA — fixed to lower area without stealing flex space from centered hero -->
+            <div
+                class="relative z-[8] mx-auto flex w-full max-w-md shrink-0 flex-col items-center pb-1 pt-3 sm:pb-2 sm:pt-4 lg:max-w-lg"
+            >
                 <div
-                    class="relative z-[8] mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col items-center justify-center py-4 sm:min-h-[5rem] sm:py-6 md:min-h-[5.5rem] lg:max-w-lg"
+                    class="pointer-events-none absolute inset-x-0 bottom-0 top-0 -z-10 bg-gradient-to-t from-orange-600/10 to-transparent opacity-80 blur-xl"
+                />
+                <Link
+                    :href="products()"
+                    class="relative inline-flex min-h-[44px] items-center justify-center px-6 text-sm font-semibold tracking-wide text-white transition hover:text-white/95"
                 >
-                    <div
-                        class="pointer-events-none absolute inset-x-0 bottom-0 top-1/4 -z-10 bg-gradient-to-t from-orange-600/10 to-transparent blur-xl"
-                    />
-                    <Link
-                        :href="products()"
-                        class="relative inline-flex min-h-[44px] shrink-0 items-center justify-center px-6 text-sm font-semibold tracking-wide text-white transition hover:text-white/95"
+                    <span
+                        class="border-b border-white/25 pb-0.5 transition hover:border-white/50"
                     >
-                        <span
-                            class="border-b border-white/25 pb-0.5 transition hover:border-white/50"
-                        >
-                            Explore collection
-                        </span>
-                    </Link>
-                </div>
+                        Explore collection
+                    </span>
+                </Link>
             </div>
 
             <p
-                class="mx-auto mt-3 hidden max-w-md shrink-0 text-center text-xs text-zinc-500 md:mt-5 lg:mt-6 lg:block"
+                class="mx-auto mt-2 hidden max-w-md shrink-0 text-center text-xs text-zinc-500 lg:mt-3 lg:block"
             >
                 {{ appName }} — premium footwear for motion and everyday confidence.
             </p>
