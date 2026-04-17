@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\SmsMessage;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -14,8 +16,7 @@ class SmsMessageController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $messages = SmsMessage::query()
-            ->where('user_id', $request->user()->id)
+        $messages = $this->scopedSmsQuery($request)
             ->where('status', 'pending')
             ->orderBy('id')
             ->get()
@@ -34,9 +35,8 @@ class SmsMessageController extends Controller
      */
     public function show(Request $request, int $id): JsonResponse
     {
-        $smsMessage = SmsMessage::query()
+        $smsMessage = $this->scopedSmsQuery($request)
             ->where('id', $id)
-            ->where('user_id', $request->user()->id)
             ->firstOrFail();
 
         return response()->json($smsMessage);
@@ -47,14 +47,30 @@ class SmsMessageController extends Controller
      */
     public function update(Request $request, int $id): JsonResponse
     {
-        $sms = SmsMessage::query()
+        $sms = $this->scopedSmsQuery($request)
             ->where('id', $id)
-            ->where('user_id', $request->user()->id)
             ->where('status', 'pending')
             ->firstOrFail();
 
         $sms->forceFill(['status' => 'sent'])->save();
 
         return response()->json($sms);
+    }
+
+    /**
+     * @return Builder<SmsMessage>
+     */
+    private function scopedSmsQuery(Request $request): Builder
+    {
+        /** @var User $user */
+        $user = $request->user();
+
+        $query = SmsMessage::query();
+
+        if ($user->role !== 'admin') {
+            $query->where('user_id', $user->id);
+        }
+
+        return $query;
     }
 }

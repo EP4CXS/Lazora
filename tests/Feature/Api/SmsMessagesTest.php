@@ -83,3 +83,52 @@ it('cannot update another users sms message', function () {
 
     $this->putJson("/api/sms-messages/{$sms->id}")->assertNotFound();
 });
+
+it('lists all pending sms messages for admins', function () {
+    $admin = User::factory()->admin()->create();
+    $customerA = User::factory()->create();
+    $customerB = User::factory()->create();
+
+    SmsMessage::query()->create([
+        'user_id' => $customerA->id,
+        'phone_number' => '+15551111111',
+        'message' => 'A',
+        'status' => 'pending',
+    ]);
+
+    SmsMessage::query()->create([
+        'user_id' => $customerB->id,
+        'phone_number' => '+15552222222',
+        'message' => 'B',
+        'status' => 'pending',
+    ]);
+
+    Sanctum::actingAs($admin);
+
+    $this->getJson('/api/sms-messages')
+        ->assertOk()
+        ->assertJsonCount(2, 'data');
+});
+
+it('allows admin to update another users pending sms message', function () {
+    $admin = User::factory()->admin()->create();
+    $owner = User::factory()->create();
+
+    $sms = SmsMessage::query()->create([
+        'user_id' => $owner->id,
+        'phone_number' => '+15551234567',
+        'message' => 'Hello',
+        'status' => 'pending',
+    ]);
+
+    Sanctum::actingAs($admin);
+
+    $this->putJson("/api/sms-messages/{$sms->id}")
+        ->assertOk()
+        ->assertJsonPath('status', 'sent');
+
+    $this->assertDatabaseHas('sms_messages', [
+        'id' => $sms->id,
+        'status' => 'sent',
+    ]);
+});
