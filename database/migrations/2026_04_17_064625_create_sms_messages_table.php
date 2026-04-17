@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('sms_messages', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('phone_number', 32);
+            $table->string('phone_number');
             $table->text('message');
-            $table->string('status', 32)->default('pending');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }
