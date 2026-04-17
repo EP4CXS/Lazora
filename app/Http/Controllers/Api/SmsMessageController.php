@@ -20,7 +20,7 @@ class SmsMessageController extends Controller
             ->latest()
             ->get();
 
-        return response()->json($messages);
+        return response()->json(['data' => $messages]);
     }
 
     /**
