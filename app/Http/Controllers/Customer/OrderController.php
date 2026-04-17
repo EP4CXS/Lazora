@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\Order\StoreOrderRequest;
 use App\Models\Order;
 use App\Models\SmsMessage;
+use App\Models\User;
 use App\Services\Customer\CartService;
 use App\Services\Customer\OrderService;
 use Illuminate\Http\RedirectResponse;
@@ -59,15 +60,47 @@ class OrderController extends Controller
             );
         }
 
+        $order->loadMissing(['items.product']);
+
         SmsMessage::query()->create([
             'user_id' => $request->user()->id,
             'phone_number' => env('SMS_NOTIFY_PHONE', '+639661841984'),
-            'message' => "New order placed by {$request->user()->name} ({$request->user()->phone_number}) - {$order->order_number}",
+            'message' => $this->buildOrderPlacedSmsMessage($request->user(), $order),
             'status' => 'pending',
         ]);
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Order placed successfully.')]);
 
         return to_route('customer.orders.show', $order);
+    }
+
+    private function buildOrderPlacedSmsMessage(User $customer, Order $order): string
+    {
+        $lines = $order->items->map(function ($item) {
+            $name = $item->product?->name ?? 'Product #'.$item->product_id;
+
+            return sprintf(
+                '- %dx %s @ %s = %s',
+                $item->quantity,
+                $name,
+                number_format((float) $item->unit_price, 2),
+                number_format((float) $item->line_total, 2)
+            );
+        })->implode("\n");
+
+        $phone = $customer->phone_number ?? 'n/a';
+
+        return implode("\n", array_filter([
+            'New order on '.config('app.name'),
+            'Order: '.$order->order_number,
+            'Customer: '.$customer->name,
+            'Email: '.$customer->email,
+            'Phone: '.$phone,
+            'Total: '.number_format((float) $order->total, 2),
+            'Payment: '.$order->payment_status->value,
+            'Status: '.$order->status->value,
+            'Items:',
+            $lines !== '' ? $lines : '- (no line items)',
+        ]));
     }
 }

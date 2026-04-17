@@ -33,23 +33,22 @@ it('lists sms messages for the authenticated user', function () {
 
     $this->getJson('/api/sms-messages')
         ->assertOk()
-        ->assertJsonCount(2, 'data')
-        ->assertJsonPath('data.0.status', 'pending')
-        ->assertJsonPath('data.1.status', 'pending');
+        ->assertJsonCount(1, 'data')
+        ->assertJsonPath('data.0.phone_number', '+15551234567')
+        ->assertJsonPath('data.0.status', 'pending');
 });
 
 it('updates an sms message by id using put', function () {
-    $owner = User::factory()->create();
-    $apiUser = User::factory()->create();
+    $user = User::factory()->create();
 
     $sms = SmsMessage::query()->create([
-        'user_id' => $owner->id,
+        'user_id' => $user->id,
         'phone_number' => '+15551234567',
         'message' => 'Hello',
         'status' => 'pending',
     ]);
 
-    Sanctum::actingAs($apiUser);
+    Sanctum::actingAs($user);
 
     $this->putJson("/api/sms-messages/{$sms->id}", [
         'status' => 'sent',
@@ -67,4 +66,20 @@ it('updates an sms message by id using put', function () {
         'phone_number' => '+15551234567',
         'message' => 'Hello',
     ]);
+});
+
+it('cannot update another users sms message', function () {
+    $owner = User::factory()->create();
+    $other = User::factory()->create();
+
+    $sms = SmsMessage::query()->create([
+        'user_id' => $owner->id,
+        'phone_number' => '+15551234567',
+        'message' => 'Hello',
+        'status' => 'pending',
+    ]);
+
+    Sanctum::actingAs($other);
+
+    $this->putJson("/api/sms-messages/{$sms->id}")->assertNotFound();
 });

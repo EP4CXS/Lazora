@@ -27,7 +27,15 @@ it('creates an sms notification when customer places an order', function () {
         'quantity' => 1,
     ])->assertRedirect();
 
-    expect(SmsMessage::query()->where('status', 'pending')->count())->toBeGreaterThan(0);
+    $sms = SmsMessage::query()
+        ->where('user_id', $customer->id)
+        ->where('status', 'pending')
+        ->latest('id')
+        ->first();
+
+    expect($sms)->not->toBeNull();
+    expect($sms->message)->toContain($product->name);
+    expect($sms->message)->toContain('Total:');
 
     $this->assertDatabaseHas('sms_messages', [
         'user_id' => $customer->id,
