@@ -39,16 +39,17 @@ it('lists sms messages for the authenticated user', function () {
 });
 
 it('updates an sms message by id using put', function () {
-    $user = User::factory()->create();
+    $owner = User::factory()->create();
+    $apiUser = User::factory()->create();
 
     $sms = SmsMessage::query()->create([
-        'user_id' => $user->id,
+        'user_id' => $owner->id,
         'phone_number' => '+15551234567',
         'message' => 'Hello',
         'status' => 'pending',
     ]);
 
-    Sanctum::actingAs($user);
+    Sanctum::actingAs($apiUser);
 
     $this->putJson("/api/sms-messages/{$sms->id}", [
         'status' => 'sent',

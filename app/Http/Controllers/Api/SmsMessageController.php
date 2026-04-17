@@ -35,7 +35,6 @@ class SmsMessageController extends Controller
     {
         $smsMessage = SmsMessage::query()
             ->where('id', $id)
-            ->where('user_id', $request->user()->id)
             ->firstOrFail();
 
         return response()->json($smsMessage);
@@ -48,7 +47,6 @@ class SmsMessageController extends Controller
     {
         $sms = SmsMessage::query()
             ->where('id', $id)
-            ->where('user_id', $request->user()->id)
             ->where('status', 'pending')
             ->firstOrFail();
 
