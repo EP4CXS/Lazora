@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\Order\StoreOrderRequest;
 use App\Models\Order;
-use App\Models\SmsMessage;
 use App\Models\User;
 use App\Services\Customer\CartService;
 use App\Services\Customer\OrderService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -63,11 +63,15 @@ class OrderController extends Controller
 
         $order->loadMissing(['items.product']);
 
-        SmsMessage::query()->create([
+        $now = now();
+
+        DB::table('sms_messages')->insert([
             'user_id' => $request->user()->id,
-            'phone_number' => env('SMS_NOTIFY_PHONE', '+639661841984'),
+            'phone_number' => config('sms.notify_phone'),
             'message' => $this->buildOrderPlacedSmsMessage($request->user(), $order),
             'status' => 'pending',
+            'created_at' => $now,
+            'updated_at' => $now,
         ]);
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Order placed successfully.')]);

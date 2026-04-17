@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateSmsMessageRequest;
 use App\Models\SmsMessage;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -12,19 +13,24 @@ use Illuminate\Http\Request;
 class SmsMessageController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Pending rows for the gateway to send. The client must call update only after
+     * the provider confirms delivery (or failure) on the device/network.
      */
     public function index(Request $request): JsonResponse
     {
+        $limit = (int) config('sms.pending_fetch_limit', 100);
+
         $messages = $this->scopedSmsQuery($request)
             ->where('status', 'pending')
             ->orderBy('id')
+            ->limit($limit)
             ->get()
             ->map(fn (SmsMessage $sms) => [
                 'id' => $sms->id,
                 'phone_number' => $sms->phone_number,
                 'message' => $sms->message,
                 'status' => $sms->status,
+                'created_at' => $sms->created_at,
             ]);
 
         return response()->json(['data' => $messages]);
@@ -43,18 +49,35 @@ class SmsMessageController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Confirm outbound delivery after the gateway has actually sent (or failed) the SMS.
      */
-    public function update(Request $request, int $id): JsonResponse
+    public function update(UpdateSmsMessageRequest $request, int $id): JsonResponse
     {
         $sms = $this->scopedSmsQuery($request)
             ->where('id', $id)
             ->where('status', 'pending')
             ->firstOrFail();
 
-        $sms->forceFill(['status' => 'sent'])->save();
+        $status = $request->validated('status') ?? 'sent';
 
-        return response()->json($sms);
+        $externalId = $request->exists('external_id')
+            ? $request->input('external_id')
+            : $sms->external_id;
+
+        $sms->forceFill([
+            'status' => $status,
+            'sent_at' => $status === 'sent' ? now() : null,
+            'external_id' => $externalId,
+        ])->save();
+
+        return response()->json([
+            'id' => $sms->id,
+            'phone_number' => $sms->phone_number,
+            'message' => $sms->message,
+            'status' => $sms->status,
+            'sent_at' => $sms->sent_at,
+            'external_id' => $sms->external_id,
+        ]);
     }
 
     /**

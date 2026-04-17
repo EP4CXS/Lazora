@@ -9,7 +9,7 @@ use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 
 #[Signature('sms:process-pending {--limit=100}')]
-#[Description('Dispatch queue jobs for pending SMS (does not mark sent; use the SMS API PUT after external send)')]
+#[Description('Report pending SMS count; optionally dispatch processor jobs when SMS_ENQUEUE_PROCESSOR_JOBS=true')]
 class SmsProcessPending extends Command
 {
     /**
@@ -17,6 +17,14 @@ class SmsProcessPending extends Command
      */
     public function handle(): int
     {
+        $pendingCount = SmsMessage::query()->where('status', 'pending')->count();
+
+        if (! config('sms.enqueue_processor_jobs')) {
+            $this->info("Pending SMS messages: {$pendingCount}. Processor jobs are disabled (SMS_ENQUEUE_PROCESSOR_JOBS=false). Confirm delivery with PUT /api/sms-messages/{id}.");
+
+            return self::SUCCESS;
+        }
+
         $limit = (int) $this->option('limit');
 
         $ids = SmsMessage::query()
@@ -29,7 +37,7 @@ class SmsProcessPending extends Command
             ProcessSmsMessage::dispatch((int) $id)->onQueue('sms');
         }
 
-        $this->info("Dispatched {$ids->count()} SMS job(s).");
+        $this->info("Dispatched {$ids->count()} SMS processor job(s). Pending in database before run: {$pendingCount}.");
 
         return self::SUCCESS;
     }

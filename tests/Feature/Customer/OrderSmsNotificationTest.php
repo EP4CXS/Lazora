@@ -4,6 +4,7 @@ use App\Models\Product;
 use App\Models\SmsMessage;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Str;
 
 uses(RefreshDatabase::class);
@@ -22,11 +23,15 @@ it('creates an sms notification when customer places an order', function () {
 
     $this->actingAs($customer);
 
+    Bus::fake();
+
     $this->post(route('customer.orders.store'), [
         'from_cart' => false,
         'product_id' => $product->id,
         'quantity' => 1,
     ])->assertRedirect();
+
+    Bus::assertNothingDispatched();
 
     $sms = SmsMessage::query()
         ->where('user_id', $customer->id)

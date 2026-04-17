@@ -52,20 +52,46 @@ it('updates an sms message by id using put', function () {
 
     $this->putJson("/api/sms-messages/{$sms->id}", [
         'status' => 'sent',
+        'external_id' => 'provider-msg-99',
         'phone_number' => '+19999999999',
         'message' => 'Hacked',
     ])->assertOk()
-        ->assertJsonFragment([
-            'id' => $sms->id,
-            'status' => 'sent',
-        ]);
+        ->assertJsonPath('id', $sms->id)
+        ->assertJsonPath('status', 'sent')
+        ->assertJsonPath('external_id', 'provider-msg-99')
+        ->assertJsonStructure(['sent_at']);
 
     $this->assertDatabaseHas('sms_messages', [
         'id' => $sms->id,
         'status' => 'sent',
         'phone_number' => '+15551234567',
         'message' => 'Hello',
+        'external_id' => 'provider-msg-99',
     ]);
+
+    expect($sms->fresh()->sent_at)->not->toBeNull();
+});
+
+it('marks an sms message as failed without sent_at', function () {
+    $user = User::factory()->create();
+
+    $sms = SmsMessage::query()->create([
+        'user_id' => $user->id,
+        'phone_number' => '+15551234567',
+        'message' => 'Hello',
+        'status' => 'pending',
+    ]);
+
+    Sanctum::actingAs($user);
+
+    $this->putJson("/api/sms-messages/{$sms->id}", [
+        'status' => 'failed',
+    ])->assertOk()
+        ->assertJsonPath('status', 'failed');
+
+    $sms->refresh();
+    expect($sms->status)->toBe('failed');
+    expect($sms->sent_at)->toBeNull();
 });
 
 it('cannot update another users sms message', function () {

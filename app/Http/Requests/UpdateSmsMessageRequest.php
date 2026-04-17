@@ -16,14 +16,13 @@ class UpdateSmsMessageRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
      * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            'status' => ['required', 'string', 'in:pending,sent,failed'],
+            'external_id' => ['nullable', 'string', 'max:255'],
+            'status' => ['nullable', 'string', 'in:sent,failed'],
         ];
     }
 }
