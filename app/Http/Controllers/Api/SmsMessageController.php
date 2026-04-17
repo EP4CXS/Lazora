@@ -12,9 +12,10 @@ class SmsMessageController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $messages = SmsMessage::query()
+            ->where('user_id', $request->user()->id)
             ->where('status', 'pending')
             ->orderBy('id')
             ->get()
@@ -41,8 +42,14 @@ class SmsMessageController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(SmsMessage $sms): JsonResponse
+    public function update(Request $request, int $id): JsonResponse
     {
+        $sms = SmsMessage::query()
+            ->where('id', $id)
+            ->where('user_id', $request->user()->id)
+            ->where('status', 'pending')
+            ->firstOrFail();
+
         $sms->update(['status' => 'sent']);
         $sms->save();
 

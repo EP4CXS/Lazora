@@ -11,5 +11,5 @@ Route::middleware(['force.json', 'auth:sanctum'])->group(function () {
 
     Route::get('sms-messages', [SmsMessageController::class, 'index']);
     Route::get('sms-messages/{smsMessage}', [SmsMessageController::class, 'show']);
-    Route::put('sms-messages/{sms}', [SmsMessageController::class, 'update']);
+    Route::put('sms-messages/{id}', [SmsMessageController::class, 'update']);
 });
