@@ -21,10 +21,10 @@ it('dispatches jobs for pending messages via command', function () {
     });
 });
 
-it('job marks pending sms as sent', function () {
+it('job leaves pending sms unchanged so the API can mark sent after external delivery', function () {
     $sms = SmsMessage::factory()->create(['status' => 'pending']);
 
     (new ProcessSmsMessage($sms->id))->handle();
 
-    expect($sms->fresh()->status)->toBe('sent');
+    expect($sms->fresh()->status)->toBe('pending');
 });

@@ -9,7 +9,7 @@ use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 
 #[Signature('sms:process-pending {--limit=100}')]
-#[Description('Dispatch jobs to process pending SMS messages')]
+#[Description('Dispatch queue jobs for pending SMS (does not mark sent; use the SMS API PUT after external send)')]
 class SmsProcessPending extends Command
 {
     /**

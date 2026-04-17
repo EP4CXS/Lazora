@@ -30,8 +30,8 @@ class ProcessSmsMessage implements ShouldQueue
             return;
         }
 
-        // Placeholder "processing": mark as sent.
-        // Replace this with an actual SMS gateway call.
-        $sms->forceFill(['status' => 'sent'])->save();
+        // Delivery is confirmed via PUT /api/sms-messages/{id} after an external gateway
+        // sends the message. This job is reserved for optional future work (e.g. retries,
+        // provider webhooks) and must not change status here.
     }
 }
