@@ -10,6 +10,6 @@ Route::middleware(['force.json', 'auth:sanctum'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
     Route::get('sms-messages', [SmsMessageController::class, 'index']);
-    Route::get('sms-messages/{smsMessage}', [SmsMessageController::class, 'show']);
+    Route::get('sms-messages/{id}', [SmsMessageController::class, 'show']);
     Route::put('sms-messages/{id}', [SmsMessageController::class, 'update']);
 });

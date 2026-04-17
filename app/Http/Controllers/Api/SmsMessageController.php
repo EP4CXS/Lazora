@@ -14,28 +14,30 @@ class SmsMessageController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        // $messages = SmsMessage::query()
-        //     ->where('user_id', $request->user()->id)
-        //     ->where('status', 'pending')
-        //     ->orderBy('id')
-        //     ->get()
-        //     ->map(fn (SmsMessage $sms) => [
-        //         'id' => $sms->id,
-        //         'phone_number' => $sms->phone_number,
-        //         'message' => $sms->message,
-        //         'status' => $sms->status,
-        //     ]);
+        $messages = SmsMessage::query()
+            ->where('user_id', $request->user()->id)
+            ->where('status', 'pending')
+            ->orderBy('id')
+            ->get()
+            ->map(fn (SmsMessage $sms) => [
+                'id' => $sms->id,
+                'phone_number' => $sms->phone_number,
+                'message' => $sms->message,
+                'status' => $sms->status,
+            ]);
 
-        $messages = SmsMessage::all();
         return response()->json(['data' => $messages]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(SmsMessage $smsMessage, Request $request): JsonResponse
+    public function show(Request $request, int $id): JsonResponse
     {
-        abort_unless($smsMessage->user_id === $request->user()->id, 404);
+        $smsMessage = SmsMessage::query()
+            ->where('id', $id)
+            ->where('user_id', $request->user()->id)
+            ->firstOrFail();
 
         return response()->json($smsMessage);
     }
@@ -51,8 +53,7 @@ class SmsMessageController extends Controller
             ->where('status', 'pending')
             ->firstOrFail();
 
-        $sms->update(['status' => 'sent']);
-        $sms->save();
+        $sms->forceFill(['status' => 'sent'])->save();
 
         return response()->json($sms);
     }
