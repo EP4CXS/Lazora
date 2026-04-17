@@ -23,7 +23,6 @@ class SmsMessageController extends Controller
                 'phone_number' => $sms->phone_number,
                 'message' => $sms->message,
                 'status' => $sms->status,
-                'created_at' => $sms->created_at,
             ]);
 
         return response()->json(['data' => $messages]);
