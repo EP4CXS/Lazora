@@ -49,11 +49,14 @@ const user = page.props.auth?.user as { phone_number?: string | null } | undefin
                     <Spinner v-if="processing" />
                     Verify
                 </Button>
-
-                <Button type="button" variant="outline" :disabled="processing" @click="PhoneOtpController.resend.visit()">
-                    Resend code
-                </Button>
             </div>
+        </Form>
+
+        <Form v-bind="PhoneOtpController.resend.form()" v-slot="{ processing }">
+            <Button type="submit" variant="outline" :disabled="processing" class="w-full">
+                <Spinner v-if="processing" />
+                Resend code
+            </Button>
         </Form>
     </div>
 </template>
