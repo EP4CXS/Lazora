@@ -13,6 +13,7 @@ it('requires sanctum authentication', function () {
 
 it('lists sms messages for the authenticated user', function () {
     $user = User::factory()->create();
+    $otherUser = User::factory()->create();
 
     SmsMessage::query()->create([
         'user_id' => $user->id,
@@ -21,12 +22,20 @@ it('lists sms messages for the authenticated user', function () {
         'status' => 'pending',
     ]);
 
+    SmsMessage::query()->create([
+        'user_id' => $otherUser->id,
+        'phone_number' => '+15559876543',
+        'message' => 'Other user pending',
+        'status' => 'pending',
+    ]);
+
     Sanctum::actingAs($user);
 
     $this->getJson('/api/sms-messages')
         ->assertOk()
-        ->assertJsonPath('data.0.phone_number', '+15551234567')
-        ->assertJsonPath('data.0.status', 'pending');
+        ->assertJsonCount(2, 'data')
+        ->assertJsonPath('data.0.status', 'pending')
+        ->assertJsonPath('data.1.status', 'pending');
 });
 
 it('updates an sms message by id using put', function () {

@@ -15,7 +15,6 @@ class SmsMessageController extends Controller
     public function index(Request $request): JsonResponse
     {
         $messages = SmsMessage::query()
-            ->where('user_id', $request->user()->id)
             ->where('status', 'pending')
             ->orderBy('id')
             ->get()
