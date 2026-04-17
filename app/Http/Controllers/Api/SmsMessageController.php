@@ -12,13 +12,19 @@ class SmsMessageController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): JsonResponse
+    public function index(): JsonResponse
     {
         $messages = SmsMessage::query()
-
             ->where('status', 'pending')
-            ->latest()
-            ->get();
+            ->orderBy('id')
+            ->get()
+            ->map(fn (SmsMessage $sms) => [
+                'id' => $sms->id,
+                'phone_number' => $sms->phone_number,
+                'message' => $sms->message,
+                'status' => $sms->status,
+                'created_at' => $sms->created_at,
+            ]);
 
         return response()->json(['data' => $messages]);
     }
