@@ -11,6 +11,7 @@ use App\Services\Customer\CartService;
 use App\Services\Customer\OrderService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -76,31 +77,26 @@ class OrderController extends Controller
 
     private function buildOrderPlacedSmsMessage(User $customer, Order $order): string
     {
-        $lines = $order->items->map(function ($item) {
-            $name = $item->product?->name ?? 'Product #'.$item->product_id;
-
-            return sprintf(
-                '- %dx %s @ %s = %s',
-                $item->quantity,
-                $name,
-                number_format((float) $item->unit_price, 2),
-                number_format((float) $item->line_total, 2)
-            );
-        })->implode("\n");
-
         $phone = $customer->phone_number ?? 'n/a';
 
-        return implode("\n", array_filter([
-            'New order on '.config('app.name'),
-            'Order: '.$order->order_number,
-            'Customer: '.$customer->name,
-            'Email: '.$customer->email,
-            'Phone: '.$phone,
-            'Total: '.number_format((float) $order->total, 2),
-            'Payment: '.$order->payment_status->value,
-            'Status: '.$order->status->value,
-            'Items:',
-            $lines !== '' ? $lines : '- (no line items)',
-        ]));
+        $items = $order->items->map(function ($item) {
+            $name = $item->product?->name ?? '#'.$item->product_id;
+            $shortName = Str::limit($name, 28, '');
+
+            return $item->quantity.'× '.$shortName;
+        })->implode(', ');
+
+        $items = Str::limit($items, 90, '…');
+
+        $total = number_format((float) $order->total, 2);
+
+        return sprintf(
+            'New order %s — %s (%s). %s. Total PHP %s.',
+            $order->order_number,
+            Str::limit($customer->name, 40, ''),
+            $phone,
+            $items !== '' ? 'Items: '.$items : 'Items: (none)',
+            $total
+        );
     }
 }

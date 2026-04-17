@@ -4,6 +4,7 @@ use App\Models\Product;
 use App\Models\SmsMessage;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 
 uses(RefreshDatabase::class);
 
@@ -34,8 +35,8 @@ it('creates an sms notification when customer places an order', function () {
         ->first();
 
     expect($sms)->not->toBeNull();
-    expect($sms->message)->toContain($product->name);
-    expect($sms->message)->toContain('Total:');
+    expect($sms->message)->toContain(Str::limit($product->name, 28, ''));
+    expect($sms->message)->toContain('Total PHP');
 
     $this->assertDatabaseHas('sms_messages', [
         'user_id' => $customer->id,
