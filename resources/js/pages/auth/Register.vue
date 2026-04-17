@@ -52,6 +52,22 @@ defineOptions({
             </div>
 
             <div class="grid gap-1.5 sm:gap-2">
+                <Label for="phone_number" class="text-[13px] font-medium text-white sm:text-sm">
+                    Phone number
+                </Label>
+                <Input
+                    id="phone_number"
+                    type="tel"
+                    :tabindex="2"
+                    autocomplete="tel"
+                    name="phone_number"
+                    placeholder="+63XXXXXXXXXX"
+                    :class="authDarkInputClass"
+                />
+                <InputError :message="errors.phone_number" />
+            </div>
+
+            <div class="grid gap-1.5 sm:gap-2">
                 <Label for="email" class="text-[13px] font-medium text-white sm:text-sm">
                     Email address
                 </Label>
@@ -59,7 +75,7 @@ defineOptions({
                     id="email"
                     type="email"
                     required
-                    :tabindex="2"
+                    :tabindex="3"
                     autocomplete="email"
                     name="email"
                     placeholder="email@example.com"
@@ -73,7 +89,7 @@ defineOptions({
                 <PasswordInput
                     id="password"
                     required
-                    :tabindex="3"
+                    :tabindex="4"
                     autocomplete="new-password"
                     name="password"
                     placeholder="Password"
@@ -92,7 +108,7 @@ defineOptions({
                 <PasswordInput
                     id="password_confirmation"
                     required
-                    :tabindex="4"
+                    :tabindex="5"
                     autocomplete="new-password"
                     name="password_confirmation"
                     placeholder="Confirm password"
@@ -103,7 +119,7 @@ defineOptions({
 
             <Button
                 type="submit"
-                tabindex="5"
+                tabindex="6"
                 :disabled="processing"
                 data-test="register-user-button"
                 :class="authDarkPrimaryButtonClass"
@@ -124,7 +140,7 @@ defineOptions({
             <Button
                 type="button"
                 variant="outline"
-                :tabindex="6"
+                :tabindex="7"
                 as="a"
                 :href="social.redirect.url('google')"
                 :class="authDarkSocialButtonClass"
@@ -153,7 +169,7 @@ defineOptions({
 
         <div class="text-center text-[13px] leading-relaxed text-zinc-500 sm:text-sm">
             Already have an account?
-            <TextLink :href="login()" :tabindex="6" :class="authDarkFooterLinkClass">
+            <TextLink :href="login()" :tabindex="8" :class="authDarkFooterLinkClass">
                 Log in
             </TextLink>
         </div>

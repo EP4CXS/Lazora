@@ -17,7 +17,16 @@ trait ProfileValidationRules
         return [
             'name' => $this->nameRules(),
             'email' => $this->emailRules($userId),
+            'phone_number' => $this->phoneNumberRules(),
         ];
+    }
+
+    /**
+     * @return array<int, \Illuminate\Contracts\Validation\Rule|array<mixed>|string>
+     */
+    protected function phoneNumberRules(): array
+    {
+        return ['nullable', 'string', 'max:32'];
     }
 
     /**

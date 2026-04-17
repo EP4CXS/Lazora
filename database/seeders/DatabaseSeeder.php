@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(AdminUserSeeder::class);
         $this->call(ProductSeeder::class);
+        $this->call(SmsMessageSeeder::class);
 
         User::firstOrCreate(
             ['email' => 'test@example.com'],

@@ -42,7 +42,7 @@ const user = computed(() => page.props.auth.user);
         <Heading
             variant="small"
             title="Profile information"
-            description="Update your name and email address"
+            description="Update your name, email address, and phone number"
         />
 
         <Form
@@ -77,6 +77,20 @@ const user = computed(() => page.props.auth.user);
                     placeholder="Email address"
                 />
                 <InputError class="mt-2" :message="errors.email" />
+            </div>
+
+            <div class="grid gap-2">
+                <Label for="phone_number">Phone number</Label>
+                <Input
+                    id="phone_number"
+                    type="tel"
+                    class="mt-1 block w-full"
+                    name="phone_number"
+                    :default-value="user.phone_number"
+                    autocomplete="tel"
+                    placeholder="+63XXXXXXXXXX"
+                />
+                <InputError class="mt-2" :message="errors.phone_number" />
             </div>
 
             <div v-if="mustVerifyEmail && !user.email_verified_at">

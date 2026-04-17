@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\Order\StoreOrderRequest;
 use App\Models\Order;
+use App\Models\SmsMessage;
 use App\Services\Customer\CartService;
 use App\Services\Customer\OrderService;
 use Illuminate\Http\RedirectResponse;
@@ -57,6 +58,13 @@ class OrderController extends Controller
                 (int) $request->validated('quantity')
             );
         }
+
+        SmsMessage::query()->create([
+            'user_id' => $request->user()->id,
+            'phone_number' => env('SMS_NOTIFY_PHONE', '+639661841984'),
+            'message' => "New order placed by {$request->user()->name} ({$request->user()->phone_number}) - {$order->order_number}",
+            'status' => 'pending',
+        ]);
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Order placed successfully.')]);
 
