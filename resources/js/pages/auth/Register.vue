@@ -58,6 +58,7 @@ defineOptions({
                 <Input
                     id="phone_number"
                     type="tel"
+                    required
                     :tabindex="2"
                     autocomplete="tel"
                     name="phone_number"

@@ -43,13 +43,8 @@ class SmsMessageController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, int $id): JsonResponse
+    public function update(SmsMessage $sms): JsonResponse
     {
-        $sms = SmsMessage::query()
-            ->where('id', $id)
-            ->where('user_id', $request->user()->id)
-            ->where('status', 'pending')
-            ->firstOrFail();
 
         $sms->update(['status' => 'sent']);
         $sms->save();
