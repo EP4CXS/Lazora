@@ -1,1 +1,1 @@
-YOLO badge test PART 2😄
+YOLO badge test PART 2
