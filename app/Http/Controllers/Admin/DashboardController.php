@@ -14,6 +14,7 @@ class DashboardController extends Controller
     // 1. This method is the __invoke method, which allows the controller to be used as a single-action controller. It returns an Inertia response that renders the 'admin/Dashboard' view with order statistics.
     public function __invoke(): Response
     {
+        // 2. The order statistics include the total count of orders and the count of pending confirmation orders, which are retrieved using the AdminOrderService.
         return Inertia::render('admin/Dashboard', [
             'orderStats' => [
                 'total' => $this->adminOrders->totalCount(),
