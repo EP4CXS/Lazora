@@ -13,9 +13,13 @@ use Inertia\Response;
 class OrderController extends Controller
 {
     public function __construct(private readonly AdminOrderService $adminOrders) {}
+    
+    // 1. This method is responsible for displaying a paginated list of orders in the admin panel. It uses the AdminOrderService to retrieve the orders and passes them to the 'admin/orders/Index' view using Inertia.
 
     public function index(): Response
     {
+
+    // 2. The paginate method is called on the AdminOrderService to retrieve a paginated list of orders, with 15 orders per page. This allows the admin to navigate through the list of orders easily without overwhelming the interface with too many orders at once.
         return Inertia::render('admin/orders/Index', [
             'orders' => $this->adminOrders->paginate(15),
         ]);
