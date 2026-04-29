@@ -16,6 +16,7 @@ class DashboardController extends Controller
     {
         // 2. The order statistics include the total count of orders and the count of pending confirmation orders, which are retrieved using the AdminOrderService.
         return Inertia::render('admin/Dashboard', [
+            // 3. The 'orderStats' key in the array passed to the view contains the total number of orders and the number of pending confirmation orders, which can be used in the view to display this information to the admin user.
             'orderStats' => [
                 'total' => $this->adminOrders->totalCount(),
                 'pendingConfirmation' => $this->adminOrders->pendingCount(),
