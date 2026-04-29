@@ -7,7 +7,6 @@ use App\Services\Admin\AdminOrderService;
 use Inertia\Inertia;
 use Inertia\Response;
 
-// 2. This is a DashboardController class that extends the abstract Controller class. It is responsible for handling requests related to the admin dashboard.
 class DashboardController extends Controller
 {
     public function __construct(private readonly AdminOrderService $adminOrders) {}
