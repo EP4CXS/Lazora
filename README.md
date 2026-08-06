@@ -1,2 +1,0 @@
-# PlaceholderPattern.vue
-    main project
